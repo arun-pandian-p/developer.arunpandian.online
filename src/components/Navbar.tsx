@@ -25,29 +25,29 @@ export const Navbar: React.FC<NavbarProps> = ({
       }`}>
         
         {/* Brand Identity */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px] transition-transform duration-300 group-hover:scale-105">
+        <a href="#" className="flex items-center gap-3 group shrink-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px] transition-transform duration-300 group-hover:scale-105">
             <img 
               src="/assets/arun-headshot.png" 
               alt="Arun Pandian" 
               className="w-full h-full object-cover rounded-full"
             />
           </div>
-          <div>
-            <div className="font-bold text-sm tracking-tight flex items-center gap-1.5 font-syne">
+          <div className="shrink-0">
+            <div className="font-bold text-xs sm:text-sm tracking-tight flex items-center gap-1.5 font-syne whitespace-nowrap">
               ARUN PANDIAN
               <span className="w-2 h-2 rounded-full bg-[#fda228] animate-pulse"></span>
             </div>
-            <div className="text-[10px] text-zinc-400 font-mono-code uppercase tracking-wider">
+            <div className="text-[9px] sm:text-[10px] text-zinc-400 font-mono-code uppercase tracking-wider whitespace-nowrap">
               SaaS · AI · Automation
             </div>
           </div>
         </a>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 text-xs font-medium tracking-wide">
+        <nav className="hidden xl:flex items-center gap-5 text-[11px] font-medium tracking-wider font-mono-code whitespace-nowrap">
           <a href="#services" className="hover:text-[#fda228] transition-colors">WHAT I BUILD</a>
-          <a href="#demos" className="hover:text-[#fda228] transition-colors">AI & WORKFLOW DEMOS</a>
+          <a href="#demos" className="hover:text-[#fda228] transition-colors">DEMOS</a>
           <a href="#saas-showcase" className="hover:text-[#fda228] transition-colors">SAAS SHOWCASE</a>
           <a href="#projects" className="hover:text-[#fda228] transition-colors">PROJECTS</a>
           <a href="#freelance" className="hover:text-[#fda228] transition-colors">PLATFORMS</a>

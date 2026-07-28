@@ -19,31 +19,33 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         
         {/* Left Column: Giant Vertical Display Typography (Matched to Reference Image) */}
-        <div className="lg:col-span-5 space-y-2 uppercase font-syne select-none">
-          <div className="text-xs font-mono-code tracking-widest text-amber-400 font-bold mb-4 flex items-center gap-2">
+        <div className="lg:col-span-5 space-y-3 uppercase font-syne select-none">
+          <div className="text-xs font-mono-code tracking-widest text-amber-400 font-bold mb-3 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
             ARUN PANDIAN STUDIO
           </div>
 
-          <div className="text-[4rem] sm:text-[6.5rem] lg:text-[7rem] xl:text-[8rem] font-black leading-[0.82] tracking-tighter text-white">
-            FOR
-          </div>
-          <div className="text-[4rem] sm:text-[6.5rem] lg:text-[7rem] xl:text-[8rem] font-black leading-[0.82] tracking-tighter text-stroke-2 hover:text-white transition-all">
-            SAAS &
-          </div>
-          <div className="text-[4rem] sm:text-[6.5rem] lg:text-[7rem] xl:text-[8rem] font-black leading-[0.82] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500">
-            AI WORK
+          <div className="space-y-1">
+            <div className="text-[3.2rem] sm:text-[5rem] lg:text-[4.2rem] xl:text-[5.4rem] 2xl:text-[6.5rem] font-black leading-[0.85] tracking-tighter text-white whitespace-nowrap">
+              FOR
+            </div>
+            <div className="text-[3.2rem] sm:text-[5rem] lg:text-[4.2rem] xl:text-[5.4rem] 2xl:text-[6.5rem] font-black leading-[0.85] tracking-tighter text-stroke-2 hover:text-white transition-all whitespace-nowrap">
+              SAAS &
+            </div>
+            <div className="text-[3.2rem] sm:text-[5rem] lg:text-[4.2rem] xl:text-[5.4rem] 2xl:text-[6.5rem] font-black leading-[0.85] tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 whitespace-nowrap">
+              AI WORK
+            </div>
           </div>
 
           {/* Quick Pillar Tags */}
-          <div className="flex flex-wrap gap-2 pt-6 font-mono-code text-xs text-zinc-300">
-            <span className="px-3 py-1.5 rounded-lg bg-zinc-900/90 border border-white/10 flex items-center gap-1.5">
+          <div className="flex flex-wrap gap-2 pt-4 font-mono-code text-[11px] text-zinc-300">
+            <span className="px-3 py-1 rounded-lg bg-zinc-900/90 border border-white/10 flex items-center gap-1.5">
               <Layers size={13} className="text-amber-400" /> SaaS Development
             </span>
-            <span className="px-3 py-1.5 rounded-lg bg-zinc-900/90 border border-white/10 flex items-center gap-1.5">
+            <span className="px-3 py-1 rounded-lg bg-zinc-900/90 border border-white/10 flex items-center gap-1.5">
               <Bot size={13} className="text-emerald-400" /> AI Agents
             </span>
-            <span className="px-3 py-1.5 rounded-lg bg-zinc-900/90 border border-white/10 flex items-center gap-1.5">
+            <span className="px-3 py-1 rounded-lg bg-zinc-900/90 border border-white/10 flex items-center gap-1.5">
               <Workflow size={13} className="text-sky-400" /> n8n Automation
             </span>
           </div>
