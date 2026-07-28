@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Lenis from 'lenis';
+import { Preloader } from './components/Preloader';
 import { Navbar } from './components/Navbar';
 import { HUDScrubber } from './components/HUDScrubber';
 import { HeroSection } from './components/HeroSection';
@@ -20,6 +21,7 @@ import { AdminCMSModal } from './components/AdminCMSModal';
 
 export const App: React.FC = () => {
   const [theme, setTheme] = useState<'dark' | 'stone'>('dark');
+  const [isLoading, setIsLoading] = useState(true);
   const [isWhatsAppOpen, setIsWhatsAppOpen] = useState(false);
   const [isIntakeOpen, setIsIntakeOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
@@ -49,6 +51,11 @@ export const App: React.FC = () => {
       theme === 'dark' ? 'bg-[#09090b] text-[#f4f4f5]' : 'bg-[#E6E1DA] text-[#18181b]'
     }`}>
       
+      {/* Cinematic Studio Preloader */}
+      {isLoading && (
+        <Preloader onComplete={() => setIsLoading(false)} />
+      )}
+
       {/* Navigation & Live HUD */}
       <Navbar
         theme={theme}
@@ -63,6 +70,7 @@ export const App: React.FC = () => {
       {/* Main Content Assembly */}
       <main>
         <HeroSection
+          isReady={!isLoading}
           onOpenWhatsApp={() => setIsWhatsAppOpen(true)}
           onOpenIntake={() => setIsIntakeOpen(true)}
         />
