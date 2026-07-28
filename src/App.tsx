@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Lenis from 'lenis';
 import { Preloader } from './components/Preloader';
 import { Navbar } from './components/Navbar';
-import { HUDScrubber } from './components/HUDScrubber';
 import { HeroSection } from './components/HeroSection';
 import { TrustMarquee } from './components/TrustMarquee';
 import { WhatIBuildSection } from './components/WhatIBuildSection';
@@ -56,7 +55,7 @@ export const App: React.FC = () => {
         <Preloader onComplete={() => setIsLoading(false)} />
       )}
 
-      {/* Navigation & Live HUD */}
+      {/* Navigation */}
       <Navbar
         theme={theme}
         setTheme={setTheme}
@@ -64,8 +63,6 @@ export const App: React.FC = () => {
         onOpenIntake={() => setIsIntakeOpen(true)}
         onOpenAdmin={() => setIsAdminOpen(true)}
       />
-
-      <HUDScrubber />
 
       {/* Main Content Assembly */}
       <main>
