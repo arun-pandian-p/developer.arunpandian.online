@@ -7,4 +7,4 @@ Disallow: /*?*
 
 # Crawl Delay & Sitemap Reference
 Crawl-delay: 1
-Sitemap: https://developerarunpandian.com/sitemap.xml
+Sitemap: https://developer.arunpandian.online/sitemap.xml
