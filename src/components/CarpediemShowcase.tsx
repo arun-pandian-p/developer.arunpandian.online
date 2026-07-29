@@ -86,7 +86,7 @@ export const CarpediemShowcase: React.FC = () => {
               {/* Hero Screenshot Preview Image */}
               <div className="relative rounded-2xl overflow-hidden border border-zinc-200 group shadow-md flex-1 min-h-[260px] bg-zinc-950">
                 <img
-                  src="/assets/carpediem-hero-preview.png"
+                  src="/assets/carpediem-hero-preview.webp"
                   alt="Carpediem Tech Innovations Hero Interface Capture - Full-Stack Web Development"
                   loading="lazy"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"

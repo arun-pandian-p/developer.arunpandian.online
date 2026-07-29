@@ -67,8 +67,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a href="#" className="flex items-center gap-2.5 group shrink-0" aria-label="Arun Pandian - Home">
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px] transition-transform duration-500 group-hover:scale-105 shrink-0">
                 <img 
-                  src="/assets/arun-headshot.png" 
-                  alt="Arun Pandian" 
+                  src="/assets/arun-headshot.webp" 
+                  alt="Developer Arun Pandian" 
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
@@ -177,7 +177,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between p-5 border-b border-white/10">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px]">
-              <img src="/assets/arun-headshot.png" alt="Arun Pandian" className="w-full h-full object-cover rounded-full" />
+              <img src="/assets/arun-headshot.webp" alt="Developer Arun Pandian" className="w-full h-full object-cover rounded-full" />
             </div>
             <span className="font-bold text-sm text-white font-syne tracking-tight">ARUN PANDIAN</span>
           </div>

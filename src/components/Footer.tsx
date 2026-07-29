@@ -58,7 +58,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenIntake }) 
           <div className="sm:col-span-2 lg:col-span-5 space-y-3 sm:space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px] shrink-0">
-                <img src="/assets/arun-headshot.png" alt="Arun Pandian" className="w-full h-full object-cover rounded-full" />
+                <img src="/assets/arun-headshot.webp" alt="Developer Arun Pandian" className="w-full h-full object-cover rounded-full" />
               </div>
               <span className="text-sm font-bold text-white font-syne uppercase">ARUN PANDIAN</span>
             </div>

@@ -84,7 +84,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
               <div className="relative aspect-[4/5] rounded-[calc(1.5rem-0.375rem)] overflow-hidden bg-zinc-950 group">
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-amber-500/10 z-10 pointer-events-none"></div>
                 <img 
-                  src="/assets/arun-hero-duotone.png" 
+                  src="/assets/arun-hero-duotone.webp" 
                   alt="Arun Pandian - Senior SaaS Developer & AI Automation Engineer" 
                   fetchPriority="high"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
@@ -208,7 +208,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
               <div className="relative aspect-[4/5] rounded-[calc(2rem-0.5rem)] overflow-hidden bg-zinc-950 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] group">
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-amber-500/10 z-10 pointer-events-none"></div>
                 <img 
-                  src="/assets/arun-hero-duotone.png" 
+                  src="/assets/arun-hero-duotone.webp" 
                   alt="Arun Pandian - Senior SaaS Developer & AI Automation Engineer" 
                   fetchPriority="high"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"

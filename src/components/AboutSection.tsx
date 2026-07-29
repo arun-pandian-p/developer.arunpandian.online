@@ -22,7 +22,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenWhatsApp, onOp
             <div className="p-2 rounded-3xl bg-zinc-100/90 border border-zinc-200/90 shadow-sm relative group">
               <div className="relative aspect-[3/4] rounded-[calc(1.5rem-0.25rem)] overflow-hidden bg-zinc-900 border border-zinc-200">
                 <img 
-                  src="/assets/arun-studio-dark.png" 
+                  src="/assets/arun-studio-dark.webp" 
                   alt="Developer Arun Pandian - MERN Stack & AI Automation Engineer" 
                   loading="lazy"
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
