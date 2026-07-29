@@ -1,71 +1,323 @@
-import React from 'react';
-import { Cpu, Database, Bot, Workflow, Layers, Code, Globe, Shield } from 'lucide-react';
+import React, { useState } from 'react';
+import { Cpu, Layers, Sparkles } from 'lucide-react';
+import {
+  ReactLogo,
+  NextjsLogo,
+  TypescriptLogo,
+  JavascriptLogo,
+  NodejsLogo,
+  ExpressLogo,
+  MongodbLogo,
+  PostgresqlLogo,
+  TailwindLogo,
+  DockerLogo,
+  GithubLogo,
+  OpenAILogo,
+  ClaudeLogo,
+  N8nLogo,
+  VercelLogo,
+  AwsLogo,
+  FigmaLogo,
+  SupabaseLogo,
+  FastapiLogo,
+  PythonLogo,
+  StripeLogo,
+  PrismaLogo
+} from './common/BrandLogos';
 
-const TECH_CATEGORIES = [
+interface TechTool {
+  name: string;
+  category: 'Frontend' | 'Backend' | 'AI & Automation' | 'DevOps & Tools';
+  description: string;
+  badge: string;
+  badgeBg: string;
+  badgeText: string;
+  icon: React.ReactNode;
+}
+
+const TECH_TOOLS: TechTool[] = [
   {
-    category: 'SaaS Engineering',
-    color: '#fda228',
-    items: ['Next.js 16', 'React 19', 'TypeScript', 'Node.js', 'Python', 'FastAPI', 'PostgreSQL', 'Supabase', 'Prisma', 'MongoDB', 'Stripe', 'Docker']
+    name: 'React 19',
+    category: 'Frontend',
+    description: 'Component architecture, Hooks, Context, Server Components',
+    badge: 'UI Library',
+    badgeBg: 'bg-cyan-50',
+    badgeText: 'text-cyan-700',
+    icon: <ReactLogo className="w-6 h-6 text-[#00D8FF]" />
   },
   {
-    category: 'AI & Agent Architecture',
-    color: '#10b981',
-    items: ['OpenAI GPT-4o', 'Claude 3.7 Sonnet', 'Gemini 2.5', 'LangChain', 'LangGraph', 'Pinecone', 'RAG Vector Search', 'MCP Protocol', 'Tool Calling']
+    name: 'Next.js 16',
+    category: 'Frontend',
+    description: 'App Router, SSR, SSG, Server Actions & API Routes',
+    badge: 'Full-Stack Framework',
+    badgeBg: 'bg-zinc-100',
+    badgeText: 'text-zinc-800',
+    icon: <NextjsLogo className="w-6 h-6 text-black" />
   },
   {
-    category: 'n8n & Workflow Automation',
-    color: '#38bdf8',
-    items: ['n8n Self-Hosted', 'Webhooks', 'REST APIs', 'WhatsApp Business API', 'Telegram API', 'Airtable Sync', 'CRM Lead Automation']
+    name: 'TypeScript',
+    category: 'Frontend',
+    description: 'Strict type safety, Generics, Interfaces, Enterprise Codebase',
+    badge: 'Language',
+    badgeBg: 'bg-blue-50',
+    badgeText: 'text-blue-700',
+    icon: <TypescriptLogo className="w-6 h-6" />
   },
   {
-    category: 'Web & Interface Design',
-    color: '#818cf8',
-    items: ['Tailwind CSS v4', 'Framer Motion 12', 'GSAP ScrollTrigger', 'Lenis Smooth Scroll', 'Canvas 3D', 'Shadcn UI', 'SEO Optimization']
+    name: 'JavaScript',
+    category: 'Frontend',
+    description: 'ES6+ Async/Await, Web APIs, Dynamic DOM manipulation',
+    badge: 'Language',
+    badgeBg: 'bg-amber-50',
+    badgeText: 'text-amber-800',
+    icon: <JavascriptLogo className="w-6 h-6" />
+  },
+  {
+    name: 'Tailwind CSS',
+    category: 'Frontend',
+    description: 'Utility-first CSS, Responsive Layouts, Custom Design Tokens',
+    badge: 'Styling',
+    badgeBg: 'bg-sky-50',
+    badgeText: 'text-sky-700',
+    icon: <TailwindLogo className="w-6 h-6 text-[#38BDF8]" />
+  },
+  {
+    name: 'Node.js',
+    category: 'Backend',
+    description: 'RESTful APIs, Microservices, Event Loop Performance',
+    badge: 'Runtime',
+    badgeBg: 'bg-emerald-50',
+    badgeText: 'text-emerald-700',
+    icon: <NodejsLogo className="w-6 h-6 text-[#68A063]" />
+  },
+  {
+    name: 'Express.js',
+    category: 'Backend',
+    description: 'Lightweight web server, Middleware pipeline, JWT Auth',
+    badge: 'Framework',
+    badgeBg: 'bg-zinc-100',
+    badgeText: 'text-zinc-700',
+    icon: <ExpressLogo className="w-6 h-6 text-zinc-900" />
+  },
+  {
+    name: 'Python & FastAPI',
+    category: 'Backend',
+    description: 'High-speed Async AI Backends, Pydantic, OpenAPI schemas',
+    badge: 'Backend & AI',
+    badgeBg: 'bg-teal-50',
+    badgeText: 'text-teal-800',
+    icon: <FastapiLogo className="w-6 h-6 text-teal-600" />
+  },
+  {
+    name: 'MongoDB',
+    category: 'Backend',
+    description: 'NoSQL Document Store, Aggregation Pipelines, Mongoose ORM',
+    badge: 'Database',
+    badgeBg: 'bg-emerald-50',
+    badgeText: 'text-emerald-800',
+    icon: <MongodbLogo className="w-6 h-6 text-[#47A248]" />
+  },
+  {
+    name: 'PostgreSQL & Supabase',
+    category: 'Backend',
+    description: 'Relational DB, Row Level Security, Real-time Webhooks & RAG',
+    badge: 'Database',
+    badgeBg: 'bg-emerald-50',
+    badgeText: 'text-emerald-800',
+    icon: <SupabaseLogo className="w-6 h-6 text-[#3ECF8E]" />
+  },
+  {
+    name: 'Prisma ORM',
+    category: 'Backend',
+    description: 'Type-safe Database Client, Schema Migrations, Multi-tenant queries',
+    badge: 'ORM Tool',
+    badgeBg: 'bg-indigo-50',
+    badgeText: 'text-indigo-700',
+    icon: <PrismaLogo className="w-6 h-6 text-indigo-600" />
+  },
+  {
+    name: 'Stripe API',
+    category: 'Backend',
+    description: 'Multi-tenant subscription billing, Checkout sessions, Webhook sync',
+    badge: 'Billing Engine',
+    badgeBg: 'bg-indigo-50',
+    badgeText: 'text-indigo-700',
+    icon: <StripeLogo className="w-6 h-6 text-[#635BFF]" />
+  },
+  {
+    name: 'OpenAI GPT-4o',
+    category: 'AI & Automation',
+    description: 'Function calling, Tool execution, JSON Structured Outputs',
+    badge: 'LLM Engine',
+    badgeBg: 'bg-emerald-50',
+    badgeText: 'text-emerald-700',
+    icon: <OpenAILogo className="w-6 h-6 text-emerald-600" />
+  },
+  {
+    name: 'Claude 3.7',
+    category: 'AI & Automation',
+    description: 'Complex reasoning, Long context synthesis, AI Agent logic',
+    badge: 'AI Reasoning',
+    badgeBg: 'bg-amber-50',
+    badgeText: 'text-amber-800',
+    icon: <ClaudeLogo className="w-6 h-6 text-amber-600" />
+  },
+  {
+    name: 'n8n Workflow',
+    category: 'AI & Automation',
+    description: 'Self-hosted automation, Webhooks, CRM Sync, WhatsApp Bots',
+    badge: 'Automation',
+    badgeBg: 'bg-rose-50',
+    badgeText: 'text-rose-700',
+    icon: <N8nLogo className="w-6 h-6 text-rose-500" />
+  },
+  {
+    name: 'Docker',
+    category: 'DevOps & Tools',
+    description: 'Containerization, Multi-stage builds, Docker Compose stack',
+    badge: 'Containers',
+    badgeBg: 'bg-sky-50',
+    badgeText: 'text-sky-700',
+    icon: <DockerLogo className="w-6 h-6 text-[#2496ED]" />
+  },
+  {
+    name: 'GitHub & CI/CD',
+    category: 'DevOps & Tools',
+    description: 'Git workflows, GitHub Actions, Automated testing & deployment',
+    badge: 'Version Control',
+    badgeBg: 'bg-zinc-100',
+    badgeText: 'text-zinc-800',
+    icon: <GithubLogo className="w-6 h-6 text-black" />
+  },
+  {
+    name: 'Vercel',
+    category: 'DevOps & Tools',
+    description: 'Zero-config Next.js deployments, Edge Functions, Analytics',
+    badge: 'Cloud Platform',
+    badgeBg: 'bg-zinc-100',
+    badgeText: 'text-zinc-900',
+    icon: <VercelLogo className="w-6 h-6 text-black" />
+  },
+  {
+    name: 'AWS Infrastructure',
+    category: 'DevOps & Tools',
+    description: 'S3 static hosting, EC2 instances, Lambda serverless triggers',
+    badge: 'Cloud Host',
+    badgeBg: 'bg-amber-50',
+    badgeText: 'text-amber-900',
+    icon: <AwsLogo className="w-6 h-6 text-amber-700" />
+  },
+  {
+    name: 'Figma',
+    category: 'DevOps & Tools',
+    description: 'UI/UX wireframing, Interactive prototypes, Design tokens export',
+    badge: 'Design Tool',
+    badgeBg: 'bg-purple-50',
+    badgeText: 'text-purple-700',
+    icon: <FigmaLogo className="w-6 h-6 text-purple-600" />
   }
 ];
 
+const CATEGORIES = ['All', 'Frontend', 'Backend', 'AI & Automation', 'DevOps & Tools'] as const;
+
 export const TechStackSection: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+
+  const filteredTools = selectedCategory === 'All' 
+    ? TECH_TOOLS 
+    : TECH_TOOLS.filter(t => t.category === selectedCategory);
+
   return (
-    <section className="py-24 px-6 max-w-7xl mx-auto space-y-12">
-      
-      {/* Header */}
-      <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-white/10 text-amber-400 text-xs font-mono-code uppercase tracking-wider">
-          <Cpu size={14} />
-          Technology Stack
-        </div>
-        <h2 className="text-4xl sm:text-5xl font-extrabold uppercase tracking-tight font-syne">
-          Engineered With <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-indigo-400 to-emerald-400">Modern Production Tools</span>
-        </h2>
-        <p className="text-zinc-400 text-base font-light leading-relaxed">
-          Focused exclusively on technologies that deliver fast, reliable, multi-tenant SaaS platforms, intelligent AI agents, and resilient automated pipelines.
-        </p>
-      </div>
+    <section id="tech-stack" className="py-20 sm:py-28 bg-white border-y border-zinc-200 relative overflow-hidden">
+      {/* Background White Grid Pattern */}
+      <div className="absolute inset-0 bg-white-grid opacity-60 pointer-events-none"></div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {TECH_CATEGORIES.map((cat, idx) => (
-          <div 
-            key={idx}
-            className="p-8 rounded-3xl neumorphic-card border border-white/10 space-y-4"
-          >
-            <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }}></span>
-              <h3 className="text-lg font-bold text-white font-syne">{cat.category}</h3>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 space-y-10 sm:space-y-12">
+        
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-800 text-xs font-mono-code font-bold uppercase tracking-wider">
+              <Cpu size={14} className="text-amber-600" />
+              Technical Stack &amp; Capability
             </div>
-
-            <div className="flex flex-wrap gap-2.5 pt-2">
-              {cat.items.map((item, i) => (
-                <span 
-                  key={i}
-                  className="px-3.5 py-2 rounded-xl bg-zinc-900/90 border border-white/10 text-xs font-mono-code text-zinc-300 hover:border-amber-500/40 transition-colors"
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-space-grotesk tracking-tight text-zinc-900 leading-tight">
+              Production Tools &amp;{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-indigo-600">
+                Official Technologies
+              </span>
+            </h2>
+            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
+              Every tool in my stack is chosen for performance, security, and scalability — powering full-stack MERN apps, autonomous AI agents, and enterprise n8n workflow systems.
+            </p>
           </div>
-        ))}
+
+          {/* Capability pill count */}
+          <div className="hidden lg:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-zinc-50 border border-zinc-200 text-xs font-mono-code text-zinc-700 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span className="font-bold font-space-grotesk text-zinc-900">20+ Production Engines</span>
+            <span className="text-zinc-400">| 100% Type-Safe</span>
+          </div>
+        </div>
+
+        {/* Category Filter Tabs */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-4 py-2 rounded-xl text-xs font-mono-code font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                selectedCategory === cat
+                  ? 'bg-zinc-900 text-white shadow-md'
+                  : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 border border-zinc-200/80'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Horizontal Scroll Track — Clean Cards with Comfortable Original Sizing */}
+        <div className="relative">
+          {/* Scrollable Container */}
+          <div className="flex space-x-5 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-zinc-300 scrollbar-track-zinc-100">
+            {filteredTools.map((tool, idx) => (
+              <div
+                key={idx}
+                className="snap-start shrink-0 w-[280px] sm:w-[320px] p-2 rounded-2xl bg-zinc-100/90 border border-zinc-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:border-amber-400/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
+              >
+                {/* Inner Bezel Core */}
+                <div className="p-5 rounded-[calc(1rem-0.25rem)] bg-white border border-zinc-100 shadow-[inset_0_1px_1px_rgba(255,255,255,1)] space-y-4 h-full flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="p-2 rounded-xl bg-zinc-50 border border-zinc-100 group-hover:scale-110 transition-transform">
+                        {tool.icon}
+                      </div>
+                      <span className={`text-[10px] font-mono-code font-semibold px-2.5 py-0.5 rounded-full ${tool.badgeBg} ${tool.badgeText} border border-zinc-200/60`}>
+                        {tool.badge}
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="font-space-grotesk font-bold text-zinc-900 text-base group-hover:text-amber-600 transition-colors">
+                        {tool.name}
+                      </h3>
+                      <p className="text-xs text-zinc-500 leading-relaxed font-normal mt-1">
+                        {tool.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-[11px] font-mono-code text-zinc-400">
+                    <span>Category</span>
+                    <span className="font-semibold text-zinc-700">{tool.category}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

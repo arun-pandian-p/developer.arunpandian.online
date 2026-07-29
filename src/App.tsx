@@ -72,30 +72,33 @@ export const App: React.FC = () => {
           onOpenIntake={() => setIsIntakeOpen(true)}
         />
 
-        <TrustMarquee />
+        {/* Pure White Theme Container (#ffffff) */}
+        <div className="bg-white text-zinc-900 w-full overflow-hidden">
+          <TrustMarquee />
 
-        <WhatIBuildSection
-          onOpenIntake={() => setIsIntakeOpen(true)}
-        />
+          <WhatIBuildSection
+            onOpenIntake={() => setIsIntakeOpen(true)}
+          />
 
-        <AIAgentDemo />
+          <AIAgentDemo />
 
-        <N8NWorkflowDemo />
+          <N8NWorkflowDemo />
 
-        <ZappyShowcase />
+          <ZappyShowcase />
 
-        <CarpediemShowcase />
+          <CarpediemShowcase />
 
-        <FreelanceChannelsSection />
+          <FreelanceChannelsSection />
 
-        <TechStackSection />
+          <TechStackSection />
 
-        <WorkProcessSection />
+          <WorkProcessSection />
 
-        <AboutSection
-          onOpenWhatsApp={() => setIsWhatsAppOpen(true)}
-          onOpenIntake={() => setIsIntakeOpen(true)}
-        />
+          <AboutSection
+            onOpenWhatsApp={() => setIsWhatsAppOpen(true)}
+            onOpenIntake={() => setIsIntakeOpen(true)}
+          />
+        </div>
       </main>
 
       {/* Footer */}

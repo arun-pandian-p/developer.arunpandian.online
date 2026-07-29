@@ -1,132 +1,164 @@
 import React, { useState } from 'react';
 import { N8N_NODES } from '../data/cmsData';
-import { Workflow, Play, CheckCircle2, Zap, Bot, Database, MessageSquare, ArrowRight, Activity } from 'lucide-react';
+import { Workflow, Zap, Bot, Database, ArrowRight, Play, CheckCircle2, RefreshCw } from 'lucide-react';
+import { N8nLogo, OpenAILogo, SupabaseLogo, WhatsappLogo } from './common/BrandLogos';
 
 export const N8NWorkflowDemo: React.FC = () => {
-  const [activeNodeId, setActiveNodeId] = useState<string>('5');
-  const [isRunningFlow, setIsRunningFlow] = useState(false);
+  const [activeNodeId, setActiveNodeId] = useState<string | null>('1');
+  const [isSimulating, setIsSimulating] = useState(false);
+  const [workflowLog, setWorkflowLog] = useState<string>('Workflow engine ready. Click "Execute Workflow Pipeline" to run lead intake automation.');
 
-  const triggerFlow = () => {
-    setIsRunningFlow(true);
-    let idx = 0;
-    const interval = setInterval(() => {
-      if (idx < N8N_NODES.length) {
-        setActiveNodeId(N8N_NODES[idx].id);
-        idx++;
-      } else {
-        clearInterval(interval);
-        setIsRunningFlow(false);
-      }
-    }, 700);
-  };
-
-  const getNodeIcon = (type: string) => {
-    switch (type) {
-      case 'trigger': return <Zap size={18} className="text-amber-400" />;
-      case 'tool': return <Workflow size={18} className="text-sky-400" />;
-      case 'ai': return <Bot size={18} className="text-emerald-400" />;
-      case 'crm': return <Database size={18} className="text-indigo-400" />;
-      case 'action': return <MessageSquare size={18} className="text-emerald-400" />;
-      default: return <Workflow size={18} className="text-sky-400" />;
+  const getNodeBrandIcon = (id: string) => {
+    switch (id) {
+      case '1': return <Zap size={20} className="text-amber-500" />;
+      case '2': return <N8nLogo className="w-5 h-5 text-rose-500" />;
+      case '3': return <OpenAILogo className="w-5 h-5 text-emerald-600" />;
+      case '4': return <SupabaseLogo className="w-5 h-5 text-[#3ECF8E]" />;
+      case '5': return <WhatsappLogo className="w-5 h-5" />;
+      default: return <Workflow size={20} className="text-indigo-500" />;
     }
   };
 
-  return (
-    <section className="py-24 px-6 max-w-7xl mx-auto space-y-12">
-      
-      {/* Header */}
-      <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-mono-code uppercase tracking-wider">
-          <Workflow size={14} />
-          Interactive Demo 02
-        </div>
-        <h2 className="text-4xl sm:text-5xl font-extrabold uppercase tracking-tight font-syne">
-          n8n Visual <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">Workflow Automation</span> Simulator
-        </h2>
-        <p className="text-zinc-400 text-base font-light leading-relaxed">
-          See how n8n automates complex business operations — receiving lead webhooks, scoring intent with AI, syncing to databases, and sending instant WhatsApp alerts.
-        </p>
-      </div>
+  const runWorkflowPipeline = () => {
+    setIsSimulating(true);
+    setWorkflowLog('⚡ Webhook Triggered -> Receiving payload from Developer Arun Pandian Intake Form...');
+    setActiveNodeId('1');
 
-      {/* Visual Canvas Container */}
-      <div className="p-8 sm:p-10 rounded-3xl neumorphic-card border border-white/10 space-y-8">
+    setTimeout(() => {
+      setActiveNodeId('2');
+      setWorkflowLog('🔄 n8n Engine -> Validating payload, parsing JSON & checking rate limits...');
+    }, 800);
+
+    setTimeout(() => {
+      setActiveNodeId('3');
+      setWorkflowLog('🤖 AI Agent -> OpenAI GPT-4o evaluating project budget, timeline & intent...');
+    }, 1600);
+
+    setTimeout(() => {
+      setActiveNodeId('4');
+      setWorkflowLog('💾 PostgreSQL Sync -> Inserting qualified lead into Supabase database...');
+    }, 2400);
+
+    setTimeout(() => {
+      setActiveNodeId('5');
+      setWorkflowLog('📱 WhatsApp Alert -> Dispatched instant alert notification to +91 8248960558!');
+      setIsSimulating(false);
+    }, 3200);
+  };
+
+  return (
+    <section className="py-20 sm:py-28 bg-white border-y border-zinc-200 relative overflow-hidden">
+      {/* Background White Grid Texture */}
+      <div className="absolute inset-0 bg-white-grid opacity-60 pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 space-y-12">
         
-        {/* Canvas Toolbar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-zinc-800">
-          <div className="flex items-center gap-3">
-            <span className="w-3 h-3 rounded-full bg-sky-400 animate-ping"></span>
-            <span className="text-sm font-bold text-white font-mono-code">n8n Production Workflow Pipeline</span>
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/25 text-rose-800 text-xs font-mono-code font-bold uppercase tracking-wider">
+              <N8nLogo className="w-4 h-4 text-rose-500" />
+              Workflow Automation Architecture
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-space-grotesk tracking-tight text-zinc-900 leading-tight">
+              Self-Hosted n8n &amp;{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-pink-600 to-indigo-600">
+                Business Process Systems
+              </span>
+            </h2>
+            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
+              Automate multi-app pipelines connecting webhooks, LLMs, CRMs, PostgreSQL, and WhatsApp APIs to eliminate manual work.
+            </p>
           </div>
 
           <button
-            onClick={triggerFlow}
-            disabled={isRunningFlow}
-            className={`px-6 py-2.5 rounded-xl font-bold text-xs font-mono-code uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg ${
-              isRunningFlow
-                ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
-                : 'bg-sky-500 hover:bg-sky-400 text-black shadow-sky-500/20'
+            onClick={runWorkflowPipeline}
+            disabled={isSimulating}
+            className={`px-6 py-3.5 rounded-xl font-mono-code text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md cursor-pointer shrink-0 ${
+              isSimulating
+                ? 'bg-zinc-300 text-zinc-600 cursor-not-allowed'
+                : 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-600/20'
             }`}
           >
-            <Play size={14} className="fill-black" />
-            <span>{isRunningFlow ? 'Executing n8n Pipeline...' : 'Run Workflow Demo'}</span>
+            {isSimulating ? (
+              <>
+                <RefreshCw size={15} className="animate-spin" />
+                <span>Running Node Pipeline...</span>
+              </>
+            ) : (
+              <>
+                <Play size={15} className="fill-white" />
+                <span>Execute Workflow Pipeline</span>
+              </>
+            )}
           </button>
         </div>
 
-        {/* Node Pipeline Flow */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
-          {N8N_NODES.map((node, index) => {
-            const isActive = node.id === activeNodeId;
-            return (
-              <React.Fragment key={node.id}>
-                <button
-                  onClick={() => setActiveNodeId(node.id)}
-                  className={`p-5 rounded-2xl text-left transition-all duration-300 border flex flex-col justify-between h-36 ${
-                    isActive
-                      ? 'bg-sky-950/60 border-sky-400 shadow-xl shadow-sky-500/10 scale-105'
-                      : 'bg-zinc-950/60 border-white/5 hover:border-white/20 text-zinc-400'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="p-2 rounded-xl bg-zinc-900 border border-white/10">
-                      {getNodeIcon(node.type)}
+        {/* Interactive Node Flow Display */}
+        <div className="p-2 rounded-3xl bg-zinc-100/90 border border-zinc-200/90 shadow-sm space-y-4">
+          <div className="p-6 sm:p-10 rounded-[calc(1.5rem-0.25rem)] bg-white border border-zinc-100 space-y-8">
+            
+            {/* Visual Node Flow Track */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative">
+              {N8N_NODES.map((node, index) => {
+                const isActive = activeNodeId === node.id;
+                return (
+                  <div
+                    key={node.id}
+                    onClick={() => setActiveNodeId(node.id)}
+                    className={`p-4 sm:p-5 rounded-2xl border transition-all duration-300 space-y-3 cursor-pointer relative ${
+                      isActive
+                        ? 'bg-white border-rose-500/80 shadow-md shadow-rose-500/10 -translate-y-1'
+                        : 'bg-zinc-50 border-zinc-200/80 hover:bg-zinc-100 hover:border-zinc-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className={`p-2.5 rounded-xl ${isActive ? 'bg-rose-50 border border-rose-200' : 'bg-white border border-zinc-200'}`}>
+                        {getNodeBrandIcon(node.id)}
+                      </div>
+                      <span className="text-[10px] font-mono-code font-bold text-zinc-400">
+                        0{index + 1}
+                      </span>
                     </div>
-                    <span className="text-[10px] font-mono-code text-zinc-500">Node 0{node.id}</span>
-                  </div>
 
-                  <div>
-                    <div className="text-xs font-bold text-white font-mono-code truncate">{node.label}</div>
-                    <div className="text-[10px] text-zinc-400 capitalize">{node.type} module</div>
-                  </div>
-                </button>
+                    <div>
+                      <h3 className="font-space-grotesk font-bold text-zinc-900 text-sm">
+                        {node.label}
+                      </h3>
+                      <p className="text-[11px] text-zinc-500 line-clamp-2 mt-1 leading-snug">
+                        {node.description}
+                      </p>
+                    </div>
 
-                {index < N8N_NODES.length - 1 && (
-                  <div className="hidden md:flex justify-center text-zinc-600">
-                    <ArrowRight size={18} className={isRunningFlow ? 'text-sky-400 animate-pulse' : ''} />
+                    {isActive && (
+                      <div className="pt-2 border-t border-rose-100 flex items-center justify-between text-[10px] font-mono-code text-rose-600 font-semibold">
+                        <span>Node Status</span>
+                        <span className="flex items-center gap-1">
+                          <CheckCircle2 size={12} className="text-emerald-500" /> Active
+                        </span>
+                      </div>
+                    )}
                   </div>
-                )}
-              </React.Fragment>
-            );
-          })}
-        </div>
-
-        {/* Selected Node Detailed Log */}
-        {activeNodeId && (
-          <div className="p-6 rounded-2xl bg-zinc-950/90 border border-sky-500/30 font-mono-code text-xs space-y-3">
-            <div className="flex items-center justify-between text-sky-400 font-bold border-b border-zinc-900 pb-2">
-              <span className="flex items-center gap-2">
-                <Activity size={14} />
-                Selected Node Telemetry — {N8N_NODES.find(n => n.id === activeNodeId)?.label}
-              </span>
-              <span className="text-[10px] text-emerald-400">Status: 200 OK</span>
+                );
+              })}
             </div>
-            <p className="text-zinc-300 leading-relaxed">
-              {N8N_NODES.find(n => n.id === activeNodeId)?.description}
-            </p>
-            <div className="text-[11px] text-zinc-500">
-              Payload execution time: 0.04s · Error handling: Auto-retry with backoff
+
+            {/* Live Console Output Log */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-zinc-900 text-white font-mono-code text-xs space-y-2 border border-zinc-800">
+              <div className="flex items-center justify-between text-[10px] text-zinc-400 pb-2 border-b border-zinc-800">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                  n8n Event Stream Output
+                </span>
+                <span>Self-Hosted Docker Engine</span>
+              </div>
+              <p className="text-rose-300 leading-relaxed">
+                {workflowLog}
+              </p>
             </div>
+
           </div>
-        )}
+        </div>
 
       </div>
     </section>
