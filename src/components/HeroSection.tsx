@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Sparkles, MessageSquare, ArrowDownRight, ShieldCheck, Layers, Bot, Workflow } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Layers, Bot, Workflow } from 'lucide-react';
 import { WhatsappLogo } from './common/BrandLogos';
 
 interface HeroSectionProps {
@@ -17,12 +17,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
 
     const timers = [
       setTimeout(() => setRevealStep(1), 100),   // Eyebrow badge
-      setTimeout(() => setRevealStep(2), 250),   // FOR
-      setTimeout(() => setRevealStep(3), 400),   // SAAS
+      setTimeout(() => setRevealStep(2), 250),   // BUILDING
+      setTimeout(() => setRevealStep(3), 400),   // SaaS
       setTimeout(() => setRevealStep(4), 550),   // & AI
       setTimeout(() => setRevealStep(5), 700),   // Center Portrait
       setTimeout(() => setRevealStep(6), 850),   // Pillars
-      setTimeout(() => setRevealStep(7), 1000),  // Right copy
+      setTimeout(() => setRevealStep(7), 1000),  // Subheading & Right Card
       setTimeout(() => setRevealStep(8), 1150)   // CTAs
     ];
 
@@ -43,7 +43,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
         <div className="lg:hidden space-y-6">
           
           {/* Eyebrow Badge */}
-          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-mono-code uppercase tracking-[0.2em] transition-all duration-500 ${
+          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-mono-code uppercase tracking-[0.2em] transition-all duration-500 ${
             revealStep >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping shrink-0"></span>
@@ -55,12 +55,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
             revealStep >= 2 ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'
           }`}>
             <div className="text-[3.2rem] xs:text-[3.8rem] sm:text-[5rem] font-black leading-[0.85] tracking-tight text-white">
-              FOR
+              BUILDING
             </div>
             <div className={`text-[3.2rem] xs:text-[3.8rem] sm:text-[5rem] font-black leading-[0.85] tracking-tight text-stroke-2 transition-all duration-600 ${
               revealStep >= 3 ? 'opacity-100' : 'opacity-0'
             }`}>
-              SAAS
+              SaaS
             </div>
             <div className={`text-[3.2rem] xs:text-[3.8rem] sm:text-[5rem] font-black leading-[0.85] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 transition-all duration-600 ${
               revealStep >= 4 ? 'opacity-100' : 'opacity-0'
@@ -68,6 +68,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
               &amp; AI
             </div>
           </div>
+
+          {/* Subheading */}
+          <p className={`text-zinc-300 text-sm sm:text-base leading-relaxed font-light transition-all duration-500 ${
+            revealStep >= 7 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}>
+            I build scalable SaaS platforms, AI agents, and n8n automations that help startups launch faster, automate workflows, and grow with confidence.
+          </p>
 
           {/* Portrait — Mobile centered */}
           <div className={`relative flex justify-center transition-all duration-700 ${
@@ -83,16 +90,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
                 />
                 <div className="absolute bottom-3 left-3 right-3 z-20 p-3 rounded-xl glass-panel border border-white/10 space-y-0.5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-mono-code text-amber-400 font-bold uppercase text-[10px]">Precision Engineering</span>
+                    <span className="font-mono-code text-amber-400 font-bold uppercase text-[10px]">PRECISION ENGINEERING</span>
                     <ShieldCheck size={14} className="text-emerald-400 shrink-0" />
                   </div>
-                  <div className="text-[11px] font-semibold text-white">Inspecting Every Detail from Architecture to Code</div>
+                  <div className="text-[11px] font-semibold text-white">Building Fast. Secure. Scalable.</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Pillar Pills — Mobile */}
+          {/* Feature Pills — Mobile */}
           <div className={`flex flex-wrap gap-2 transition-all duration-500 ${
             revealStep >= 6 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
@@ -107,16 +114,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
             </span>
           </div>
 
-          {/* Description — Mobile */}
-          <div className={`space-y-4 transition-all duration-500 ${
+          {/* Right Card Text — Mobile */}
+          <div className={`p-4 rounded-2xl bg-zinc-900/80 border border-white/10 text-xs text-zinc-300 font-light leading-relaxed transition-all duration-500 ${
             revealStep >= 7 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
-            <div className="w-10 h-10 rounded-xl bg-amber-400 text-black flex items-center justify-center shadow-lg shadow-amber-400/20">
-              <ArrowDownRight size={22} className="stroke-[2.5]" />
-            </div>
-            <p className="text-zinc-300 text-sm leading-relaxed font-light">
-              A freelance <strong className="text-white font-semibold">SaaS developer, AI agent engineer and n8n automation specialist</strong> based in India. Delivering high-performance digital products for founders worldwide.
-            </p>
+            AI-powered solutions engineered for performance, automation, and long-term scalability—from idea to production.
           </div>
 
           {/* CTAs — Mobile full-width */}
@@ -125,22 +127,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
           }`}>
             <button
               onClick={onOpenIntake}
-              className="w-full group flex items-center justify-between pl-5 pr-2 py-3 rounded-full bg-[#fda228] hover:bg-amber-400 text-black font-bold text-sm font-mono-code uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 min-h-[52px] cursor-pointer"
-              aria-label="Start a project"
+              className="w-full group flex items-center justify-between pl-6 pr-3 py-3.5 rounded-full bg-[#fda228] hover:bg-amber-400 text-black font-bold text-sm font-mono-code uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 min-h-[52px] cursor-pointer"
+              aria-label="Start Your Project"
             >
-              <span>Start a Project</span>
-              <div className="w-10 h-10 rounded-full bg-black/15 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                <Sparkles size={17} className="text-black" />
+              <span>Start Your Project</span>
+              <div className="w-9 h-9 rounded-full bg-black/15 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                <ArrowRight size={16} className="text-black" />
               </div>
             </button>
 
             <button
               onClick={onOpenWhatsApp}
-              className="w-full group flex items-center justify-between pl-5 pr-2 py-3 rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] font-bold text-sm font-mono-code transition-all min-h-[52px] cursor-pointer"
-              aria-label="Contact via WhatsApp"
+              className="w-full group flex items-center justify-between pl-6 pr-3 py-3.5 rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] font-bold text-sm font-mono-code transition-all min-h-[52px] cursor-pointer"
+              aria-label="Chat on WhatsApp"
             >
-              <span>WhatsApp Me</span>
-              <div className="w-10 h-10 rounded-full bg-[#25D366]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <span>Chat on WhatsApp</span>
+              <div className="w-9 h-9 rounded-full bg-[#25D366]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <WhatsappLogo className="w-5 h-5" />
               </div>
             </button>
@@ -151,7 +153,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
         <div className="hidden lg:grid grid-cols-12 gap-8 xl:gap-10 items-center">
           
           {/* Left Column */}
-          <div className="col-span-5 space-y-4 uppercase font-syne select-none">
+          <div className="col-span-5 space-y-5">
             
             {/* Eyebrow Badge */}
             <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-mono-code uppercase tracking-[0.2em] transition-all duration-500 ${
@@ -161,27 +163,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
               ARUN PANDIAN STUDIO
             </div>
 
-            {/* Display Stack */}
-            <div className="space-y-0.5">
-              <div className={`text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] font-black leading-[0.85] tracking-tight text-white transition-all duration-600 ${
+            {/* Headline Display Stack */}
+            <div className="space-y-0.5 uppercase font-syne select-none">
+              <div className={`text-[4.2rem] xl:text-[5.2rem] 2xl:text-[6.2rem] font-black leading-[0.85] tracking-tight text-white transition-all duration-600 ${
                 revealStep >= 2 ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'
               }`}>
-                FOR
+                BUILDING
               </div>
-              <div className={`text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] font-black leading-[0.85] tracking-tight text-stroke-2 hover:text-white transition-all duration-600 ${
+              <div className={`text-[4.2rem] xl:text-[5.2rem] 2xl:text-[6.2rem] font-black leading-[0.85] tracking-tight text-stroke-2 hover:text-white transition-all duration-600 ${
                 revealStep >= 3 ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'
               }`}>
-                SAAS
+                SaaS
               </div>
-              <div className={`text-[4.5rem] xl:text-[5.5rem] 2xl:text-[6.5rem] font-black leading-[0.85] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 transition-all duration-600 ${
+              <div className={`text-[4.2rem] xl:text-[5.2rem] 2xl:text-[6.2rem] font-black leading-[0.85] tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 transition-all duration-600 ${
                 revealStep >= 4 ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'
               }`}>
                 &amp; AI
               </div>
             </div>
 
-            {/* Pillar Pills */}
-            <div className={`flex flex-wrap gap-2 pt-2 font-mono-code text-[11px] text-zinc-300 transition-all duration-500 ${
+            {/* Feature Pills */}
+            <div className={`flex flex-wrap gap-2 pt-1 font-mono-code text-[11px] text-zinc-300 transition-all duration-500 ${
               revealStep >= 6 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
               <span className="px-3 py-1.5 rounded-xl bg-zinc-900/90 border border-white/10 flex items-center gap-1.5">
@@ -194,6 +196,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
                 <Workflow size={13} className="text-sky-400 shrink-0" /> n8n Automation
               </span>
             </div>
+
           </div>
 
           {/* Center Column: Portrait */}
@@ -210,28 +213,30 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
                 />
                 <div className="absolute bottom-4 left-4 right-4 z-20 p-3.5 rounded-2xl glass-panel border border-white/10 space-y-1">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-mono-code text-amber-400 font-bold uppercase">Precision Engineering</span>
+                    <span className="font-mono-code text-amber-400 font-bold uppercase">PRECISION ENGINEERING</span>
                     <ShieldCheck size={16} className="text-emerald-400 shrink-0" />
                   </div>
-                  <div className="text-xs font-semibold text-white">Inspecting Every Detail from Architecture to Code</div>
+                  <div className="text-xs font-semibold text-white">Building Fast. Secure. Scalable.</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Copy + CTAs */}
+          {/* Right Column: Subheading, Right Card & CTAs */}
           <div className="col-span-3 space-y-6 flex flex-col justify-between">
             
-            {/* Description */}
-            <div className={`space-y-5 transition-all duration-500 ${
+            <div className={`space-y-4 transition-all duration-500 ${
               revealStep >= 7 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
-              <div className="w-12 h-12 rounded-2xl bg-amber-400 text-black flex items-center justify-center shadow-lg shadow-amber-400/20">
-                <ArrowDownRight size={28} className="stroke-[2.5]" />
-              </div>
-              <p className="text-zinc-300 text-sm leading-relaxed font-light">
-                A freelance <strong className="text-white font-semibold">SaaS developer, AI agent engineer and n8n automation specialist</strong> based in India. Delivering high-performance digital products for founders worldwide.
+              {/* Subheading */}
+              <p className="text-zinc-300 text-xs sm:text-sm leading-relaxed font-light">
+                I build scalable SaaS platforms, AI agents, and n8n automations that help startups launch faster, automate workflows, and grow with confidence.
               </p>
+
+              {/* Right Card */}
+              <div className="p-4 rounded-2xl bg-zinc-900/90 border border-white/10 text-xs text-zinc-400 font-light leading-relaxed shadow-lg">
+                AI-powered solutions engineered for performance, automation, and long-term scalability—from idea to production.
+              </div>
             </div>
 
             {/* CTAs */}
@@ -240,23 +245,23 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
             }`}>
               <button
                 onClick={onOpenIntake}
-                className="w-full group flex items-center justify-between pl-6 pr-2 py-2 rounded-full bg-[#fda228] hover:bg-amber-400 text-black font-bold text-xs font-mono-code uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 min-h-[44px] cursor-pointer"
-                aria-label="Start a project"
+                className="w-full group flex items-center justify-between pl-5 pr-2.5 py-2.5 rounded-full bg-[#fda228] hover:bg-amber-400 text-black font-bold text-xs font-mono-code uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 min-h-[46px] cursor-pointer"
+                aria-label="Start Your Project"
               >
-                <span>Start a Project</span>
-                <div className="w-9 h-9 rounded-full bg-black/15 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                  <Sparkles size={16} className="text-black" />
+                <span>Start Your Project</span>
+                <div className="w-8 h-8 rounded-full bg-black/15 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                  <ArrowRight size={15} className="text-black" />
                 </div>
               </button>
 
               <button
                 onClick={onOpenWhatsApp}
-                className="w-full group flex items-center justify-between pl-6 pr-2 py-2 rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] font-semibold text-xs font-mono-code transition-all min-h-[44px] cursor-pointer"
-                aria-label="Contact via WhatsApp"
+                className="w-full group flex items-center justify-between pl-5 pr-2.5 py-2.5 rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] font-semibold text-xs font-mono-code transition-all min-h-[46px] cursor-pointer"
+                aria-label="Chat on WhatsApp"
               >
-                <span>WhatsApp Me</span>
-                <div className="w-9 h-9 rounded-full bg-[#25D366]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <WhatsappLogo className="w-5 h-5" />
+                <span>Chat on WhatsApp</span>
+                <div className="w-8 h-8 rounded-full bg-[#25D366]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <WhatsappLogo className="w-4 h-4" />
                 </div>
               </button>
             </div>
