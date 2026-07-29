@@ -93,7 +93,8 @@ export const ZappyShowcase: React.FC = () => {
               <div className="relative rounded-2xl overflow-hidden border border-zinc-200 group shadow-md flex-1 min-h-[260px] bg-zinc-950">
                 <img
                   src="/assets/zappy-hero-preview.png"
-                  alt="Zappy.ind.in SaaS Hero Interface Capture"
+                  alt="Zappy.ind.in SaaS Hero Interface Capture - Multi-Tenant SaaS Architecture"
+                  loading="lazy"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>

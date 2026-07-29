@@ -1,0 +1,10 @@
+# Enterprise Robots.txt for Developer Arun Pandian
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /*?*
+
+# Crawl Delay & Sitemap Reference
+Crawl-delay: 1
+Sitemap: https://developerarunpandian.com/sitemap.xml

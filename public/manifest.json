@@ -1,0 +1,22 @@
+{
+  "short_name": "Arun Pandian",
+  "name": "Developer Arun Pandian - SaaS & AI Studio",
+  "description": "Portfolio of Arun Pandian: MERN Stack Developer, AI Agent Builder & n8n Workflow Automation Engineer.",
+  "icons": [
+    {
+      "src": "/assets/arun-headshot.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/arun-headshot.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#09090b",
+  "theme_color": "#fda228",
+  "display": "standalone",
+  "orientation": "portrait"
+}

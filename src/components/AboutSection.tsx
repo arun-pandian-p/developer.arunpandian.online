@@ -24,6 +24,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenWhatsApp, onOp
                 <img 
                   src="/assets/arun-studio-dark.png" 
                   alt="Developer Arun Pandian - MERN Stack & AI Automation Engineer" 
+                  loading="lazy"
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
