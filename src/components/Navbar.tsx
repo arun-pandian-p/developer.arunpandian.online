@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Layers, Sparkles, Moon, Sun, ArrowUpRight, Menu, X } from 'lucide-react';
-import { WhatsappLogo } from './common/BrandLogos';
+import { Layers, Sparkles, ArrowUpRight, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   theme: 'dark' | 'stone';
   setTheme: (t: 'dark' | 'stone') => void;
-  onOpenWhatsApp: () => void;
   onOpenIntake: () => void;
   onOpenAdmin: () => void;
 }
@@ -21,8 +19,6 @@ const NAV_LINKS = [
 
 export const Navbar: React.FC<NavbarProps> = ({
   theme,
-  setTheme,
-  onOpenWhatsApp,
   onOpenIntake,
   onOpenAdmin
 }) => {
@@ -98,36 +94,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Action Controls */}
             <div className="flex items-center gap-2">
-              {/* Theme Toggle */}
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'stone' : 'dark')}
-                className="touch-target w-9 h-9 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-white/10 text-amber-400 transition-colors flex items-center justify-center cursor-pointer"
-                title="Toggle Theme"
-                aria-label="Toggle color theme"
-              >
-                {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
-              </button>
-
-              {/* Admin CMS Trigger - desktop only */}
+              {/* Admin CMS Trigger */}
               <button
                 onClick={onOpenAdmin}
                 className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs font-mono-code rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-300 transition-colors min-h-[36px] cursor-pointer"
               >
                 <Layers size={13} className="text-amber-400" />
                 <span>CMS</span>
-              </button>
-
-              {/* WhatsApp Button - hidden on very small screens, visible on sm+ */}
-              <button
-                onClick={onOpenWhatsApp}
-                className="hidden sm:flex group items-center gap-2 pl-4 pr-1.5 py-1.5 text-xs font-bold font-mono-code rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] transition-all min-h-[36px] cursor-pointer"
-                aria-label="Contact via WhatsApp"
-              >
-                <span className="hidden md:inline">WhatsApp</span>
-                <span className="md:hidden">Chat</span>
-                <div className="w-7 h-7 rounded-full bg-[#25D366]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <WhatsappLogo className="w-4 h-4" />
-                </div>
               </button>
 
               {/* Start Project Button - lg+ only */}
@@ -221,16 +194,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Start a Project</span>
             <div className="w-9 h-9 rounded-full bg-black/15 flex items-center justify-center">
               <Sparkles size={16} className="text-black" />
-            </div>
-          </button>
-
-          <button
-            onClick={() => { onOpenWhatsApp(); closeMobile(); }}
-            className="w-full flex items-center justify-between pl-5 pr-2 py-3 rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] font-bold text-sm font-mono-code transition-all min-h-[52px] cursor-pointer"
-          >
-            <span>WhatsApp Me</span>
-            <div className="w-9 h-9 rounded-full bg-[#25D366]/20 flex items-center justify-center">
-              <WhatsappLogo className="w-5 h-5" />
             </div>
           </button>
 
