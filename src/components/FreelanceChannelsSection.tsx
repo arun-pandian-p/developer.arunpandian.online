@@ -1,8 +1,16 @@
 import React from 'react';
 import { FREELANCE_PLATFORMS } from '../data/cmsData';
-import { Star, ExternalLink, ShieldCheck, CheckCircle2, Award } from 'lucide-react';
+import { Star, ExternalLink, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { FiverrLogo, UpworkLogo, FreelancerLogo } from './common/BrandLogos';
 
 export const FreelanceChannelsSection: React.FC = () => {
+  const getLogo = (name: string) => {
+    if (name === 'Fiverr') return <FiverrLogo className="w-7 h-7 shrink-0" />;
+    if (name === 'Upwork') return <UpworkLogo className="w-7 h-7 shrink-0" />;
+    if (name === 'Freelancer.com') return <FreelancerLogo className="w-7 h-7 shrink-0" />;
+    return null;
+  };
+
   return (
     <section id="freelance" className="py-20 sm:py-28 bg-white border-y border-zinc-200 relative overflow-hidden">
       {/* Background White Grid Texture */}
@@ -37,12 +45,17 @@ export const FreelanceChannelsSection: React.FC = () => {
               <div className="p-6 sm:p-8 rounded-[calc(1.5rem-0.25rem)] bg-white border border-zinc-100 space-y-6 h-full flex flex-col justify-between">
                 
                 <div className="space-y-4">
-                  {/* Top Row — Brand Name & Rating */}
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-space-grotesk font-bold text-zinc-900 text-xl group-hover:text-amber-600 transition-colors">
-                      {platform.name}
-                    </h3>
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-xs font-mono-code font-bold text-amber-800">
+                  {/* Top Row — Brand Logo, Name & Rating */}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2.5">
+                      <div className="p-1.5 rounded-xl bg-zinc-50 border border-zinc-100 group-hover:scale-110 transition-transform flex items-center justify-center">
+                        {getLogo(platform.name)}
+                      </div>
+                      <h3 className="font-space-grotesk font-bold text-zinc-900 text-xl group-hover:text-amber-600 transition-colors">
+                        {platform.name}
+                      </h3>
+                    </div>
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-xs font-mono-code font-bold text-amber-800 shrink-0">
                       <Star size={13} className="fill-amber-500 text-amber-500" />
                       <span>5.0 ({platform.reviewCount})</span>
                     </div>
