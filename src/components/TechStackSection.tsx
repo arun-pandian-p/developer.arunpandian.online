@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Cpu, Layers, Sparkles } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 import {
   ReactLogo,
   NextjsLogo,
@@ -12,6 +12,7 @@ import {
   TailwindLogo,
   DockerLogo,
   GithubLogo,
+  GithubActionsLogo,
   OpenAILogo,
   ClaudeLogo,
   N8nLogo,
@@ -43,7 +44,7 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'UI Library',
     badgeBg: 'bg-cyan-50',
     badgeText: 'text-cyan-700',
-    icon: <ReactLogo className="w-6 h-6 text-[#00D8FF]" />
+    icon: <ReactLogo className="w-9 h-9" />
   },
   {
     name: 'Next.js 16',
@@ -52,7 +53,7 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Full-Stack Framework',
     badgeBg: 'bg-zinc-100',
     badgeText: 'text-zinc-800',
-    icon: <NextjsLogo className="w-6 h-6 text-black" />
+    icon: <NextjsLogo className="w-9 h-9" />
   },
   {
     name: 'TypeScript',
@@ -61,7 +62,7 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Language',
     badgeBg: 'bg-blue-50',
     badgeText: 'text-blue-700',
-    icon: <TypescriptLogo className="w-6 h-6" />
+    icon: <TypescriptLogo className="w-9 h-9" />
   },
   {
     name: 'JavaScript',
@@ -70,7 +71,7 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Language',
     badgeBg: 'bg-amber-50',
     badgeText: 'text-amber-800',
-    icon: <JavascriptLogo className="w-6 h-6" />
+    icon: <JavascriptLogo className="w-9 h-9" />
   },
   {
     name: 'Tailwind CSS',
@@ -79,7 +80,7 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Styling',
     badgeBg: 'bg-sky-50',
     badgeText: 'text-sky-700',
-    icon: <TailwindLogo className="w-6 h-6 text-[#38BDF8]" />
+    icon: <TailwindLogo className="w-9 h-9" />
   },
   {
     name: 'Node.js',
@@ -88,7 +89,7 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Runtime',
     badgeBg: 'bg-emerald-50',
     badgeText: 'text-emerald-700',
-    icon: <NodejsLogo className="w-6 h-6 text-[#68A063]" />
+    icon: <NodejsLogo className="w-9 h-9" />
   },
   {
     name: 'Express.js',
@@ -97,16 +98,25 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Framework',
     badgeBg: 'bg-zinc-100',
     badgeText: 'text-zinc-700',
-    icon: <ExpressLogo className="w-6 h-6 text-zinc-900" />
+    icon: <ExpressLogo className="w-9 h-9" />
   },
   {
-    name: 'Python & FastAPI',
+    name: 'Python',
+    category: 'Backend',
+    description: 'Data processing, Automation, Machine Learning & Scripts',
+    badge: 'Language',
+    badgeBg: 'bg-blue-50',
+    badgeText: 'text-blue-800',
+    icon: <PythonLogo className="w-9 h-9" />
+  },
+  {
+    name: 'FastAPI',
     category: 'Backend',
     description: 'High-speed Async AI Backends, Pydantic, OpenAPI schemas',
-    badge: 'Backend & AI',
+    badge: 'Framework',
     badgeBg: 'bg-teal-50',
     badgeText: 'text-teal-800',
-    icon: <FastapiLogo className="w-6 h-6 text-teal-600" />
+    icon: <FastapiLogo className="w-9 h-9" />
   },
   {
     name: 'MongoDB',
@@ -115,61 +125,70 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Database',
     badgeBg: 'bg-emerald-50',
     badgeText: 'text-emerald-800',
-    icon: <MongodbLogo className="w-6 h-6 text-[#47A248]" />
+    icon: <MongodbLogo className="w-9 h-9" />
   },
   {
-    name: 'PostgreSQL & Supabase',
+    name: 'PostgreSQL',
     category: 'Backend',
-    description: 'Relational DB, Row Level Security, Real-time Webhooks & RAG',
+    description: 'Relational DB, ACIS Compliance, Complex SQL & Indexing',
     badge: 'Database',
+    badgeBg: 'bg-blue-50',
+    badgeText: 'text-blue-800',
+    icon: <PostgresqlLogo className="w-9 h-9" />
+  },
+  {
+    name: 'Supabase',
+    category: 'Backend',
+    description: 'PostgreSQL BaaS, Row Level Security, Real-time Webhooks & RAG',
+    badge: 'BaaS & DB',
     badgeBg: 'bg-emerald-50',
     badgeText: 'text-emerald-800',
-    icon: <SupabaseLogo className="w-6 h-6 text-[#3ECF8E]" />
+    icon: <SupabaseLogo className="w-9 h-9" />
   },
   {
     name: 'Prisma ORM',
     category: 'Backend',
     description: 'Type-safe Database Client, Schema Migrations, Multi-tenant queries',
     badge: 'ORM Tool',
-    badgeBg: 'bg-indigo-50',
-    badgeText: 'text-indigo-700',
-    icon: <PrismaLogo className="w-6 h-6 text-indigo-600" />
+    badgeBg: 'bg-slate-100',
+    badgeText: 'text-slate-700',
+    icon: <PrismaLogo className="w-9 h-9" />
   },
   {
-    name: 'Stripe API',
+    name: 'Stripe',
     category: 'Backend',
     description: 'Multi-tenant subscription billing, Checkout sessions, Webhook sync',
     badge: 'Billing Engine',
     badgeBg: 'bg-indigo-50',
     badgeText: 'text-indigo-700',
-    icon: <StripeLogo className="w-6 h-6 text-[#635BFF]" />
+    icon: <StripeLogo className="w-9 h-9" />
   },
   {
-    name: 'OpenAI GPT-4o',
+    name: 'OpenAI',
     category: 'AI & Automation',
-    description: 'Function calling, Tool execution, JSON Structured Outputs',
+    description: 'GPT-4o Function calling, Tool execution, JSON Structured Outputs',
     badge: 'LLM Engine',
     badgeBg: 'bg-emerald-50',
     badgeText: 'text-emerald-700',
-    icon: <OpenAILogo className="w-6 h-6 text-emerald-600" />
+    icon: <OpenAILogo className="w-9 h-9" />
   },
   {
-    name: 'Claude 3.7',
+    name: 'Claude AI (Anthropic)',
     category: 'AI & Automation',
     description: 'Complex reasoning, Long context synthesis, AI Agent logic',
     badge: 'AI Reasoning',
     badgeBg: 'bg-amber-50',
     badgeText: 'text-amber-800',
-    icon: <ClaudeLogo className="w-6 h-6 text-amber-600" />
+    icon: <ClaudeLogo className="w-9 h-9" />
   },
   {
-    name: 'n8n Workflow',
+    name: 'n8n',
     category: 'AI & Automation',
     description: 'Self-hosted automation, Webhooks, CRM Sync, WhatsApp Bots',
     badge: 'Automation',
     badgeBg: 'bg-rose-50',
     badgeText: 'text-rose-700',
-    icon: <N8nLogo className="w-6 h-6 text-rose-500" />
+    icon: <N8nLogo className="w-9 h-9" />
   },
   {
     name: 'Docker',
@@ -178,16 +197,25 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Containers',
     badgeBg: 'bg-sky-50',
     badgeText: 'text-sky-700',
-    icon: <DockerLogo className="w-6 h-6 text-[#2496ED]" />
+    icon: <DockerLogo className="w-9 h-9" />
   },
   {
-    name: 'GitHub & CI/CD',
+    name: 'GitHub',
     category: 'DevOps & Tools',
-    description: 'Git workflows, GitHub Actions, Automated testing & deployment',
+    description: 'Git workflows, Code reviews, Repository management & Security',
     badge: 'Version Control',
     badgeBg: 'bg-zinc-100',
     badgeText: 'text-zinc-800',
-    icon: <GithubLogo className="w-6 h-6 text-black" />
+    icon: <GithubLogo className="w-9 h-9" />
+  },
+  {
+    name: 'GitHub Actions',
+    category: 'DevOps & Tools',
+    description: 'Automated CI/CD pipelines, Automated testing & Cloud releases',
+    badge: 'CI/CD Pipeline',
+    badgeBg: 'bg-blue-50',
+    badgeText: 'text-blue-700',
+    icon: <GithubActionsLogo className="w-9 h-9" />
   },
   {
     name: 'Vercel',
@@ -196,16 +224,16 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Cloud Platform',
     badgeBg: 'bg-zinc-100',
     badgeText: 'text-zinc-900',
-    icon: <VercelLogo className="w-6 h-6 text-black" />
+    icon: <VercelLogo className="w-9 h-9" />
   },
   {
-    name: 'AWS Infrastructure',
+    name: 'AWS',
     category: 'DevOps & Tools',
     description: 'S3 static hosting, EC2 instances, Lambda serverless triggers',
     badge: 'Cloud Host',
     badgeBg: 'bg-amber-50',
     badgeText: 'text-amber-900',
-    icon: <AwsLogo className="w-6 h-6 text-amber-700" />
+    icon: <AwsLogo className="w-9 h-9" />
   },
   {
     name: 'Figma',
@@ -214,7 +242,7 @@ const TECH_TOOLS: TechTool[] = [
     badge: 'Design Tool',
     badgeBg: 'bg-purple-50',
     badgeText: 'text-purple-700',
-    icon: <FigmaLogo className="w-6 h-6 text-purple-600" />
+    icon: <FigmaLogo className="w-9 h-9" />
   }
 ];
 
@@ -248,14 +276,14 @@ export const TechStackSection: React.FC = () => {
               </span>
             </h2>
             <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
-              Every tool in my stack is chosen for performance, security, and scalability — powering full-stack MERN apps, autonomous AI agents, and enterprise n8n workflow systems.
+              Every tool in my stack is chosen for performance, security, and scalability — powering full-stack web applications, autonomous AI agents, and enterprise automation systems.
             </p>
           </div>
 
           {/* Capability pill count */}
           <div className="hidden lg:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-zinc-50 border border-zinc-200 text-xs font-mono-code text-zinc-700 shadow-xs">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="font-bold font-space-grotesk text-zinc-900">20+ Production Engines</span>
+            <span className="font-bold font-space-grotesk text-zinc-900">20+ Official Brand Engines</span>
             <span className="text-zinc-400">| 100% Type-Safe</span>
           </div>
         </div>
@@ -277,7 +305,7 @@ export const TechStackSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Horizontal Scroll Track — Clean Cards with Comfortable Original Sizing */}
+        {/* Horizontal Scroll Track */}
         <div className="relative">
           {/* Scrollable Container */}
           <div className="flex space-x-5 overflow-x-auto pb-6 pt-2 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-zinc-300 scrollbar-track-zinc-100">
@@ -290,7 +318,7 @@ export const TechStackSection: React.FC = () => {
                 <div className="p-5 rounded-[calc(1rem-0.25rem)] bg-white border border-zinc-100 shadow-[inset_0_1px_1px_rgba(255,255,255,1)] space-y-4 h-full flex flex-col justify-between">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <div className="p-2 rounded-xl bg-zinc-50 border border-zinc-100 group-hover:scale-110 transition-transform">
+                      <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-100 group-hover:scale-110 transition-transform flex items-center justify-center">
                         {tool.icon}
                       </div>
                       <span className={`text-[10px] font-mono-code font-semibold px-2.5 py-0.5 rounded-full ${tool.badgeBg} ${tool.badgeText} border border-zinc-200/60`}>
