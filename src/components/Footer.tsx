@@ -1,6 +1,13 @@
 import React from 'react';
-import { Sparkles, ArrowUpRight } from 'lucide-react';
-import { WhatsappLogo, GithubLogo, LinkedinLogo } from './common/BrandLogos';
+import { ArrowUpRight } from 'lucide-react';
+import {
+  WhatsappLogo,
+  GithubLogo,
+  LinkedinLogo,
+  FiverrLogo,
+  UpworkLogo,
+  FreelancerLogo
+} from './common/BrandLogos';
 
 interface FooterProps {
   onOpenWhatsApp: () => void;
@@ -88,24 +95,65 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenIntake }) 
               <div>Platforms: Fiverr · Upwork · Freelancer.com</div>
               <div>Location: India (Remote Worldwide)</div>
             </div>
-            <div className="flex items-center gap-3 pt-1">
+
+            {/* Horizontal Platform Icons */}
+            <div className="flex items-center gap-4 pt-3 flex-wrap">
+              <button
+                onClick={onOpenWhatsApp}
+                className="transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_0_10px_rgba(37,211,102,0.6)] cursor-pointer"
+                aria-label="WhatsApp Direct"
+              >
+                <WhatsappLogo className="w-7 h-7 sm:w-8 sm:h-8" />
+              </button>
+
+              <a
+                href="https://fiverr.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_0_10px_rgba(29,191,115,0.6)]"
+                aria-label="Fiverr Profile"
+              >
+                <FiverrLogo className="w-7 h-7 sm:w-8 sm:h-8" />
+              </a>
+
+              <a
+                href="https://upwork.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_0_10px_rgba(111,218,68,0.6)]"
+                aria-label="Upwork Profile"
+              >
+                <UpworkLogo className="w-7 h-7 sm:w-8 sm:h-8" />
+              </a>
+
+              <a
+                href="https://freelancer.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_0_10px_rgba(41,178,254,0.6)]"
+                aria-label="Freelancer Profile"
+              >
+                <FreelancerLogo className="w-7 h-7 sm:w-8 sm:h-8" />
+              </a>
+
               <a
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="touch-target w-10 h-10 rounded-xl bg-zinc-900 text-zinc-300 hover:text-white border border-white/5 flex items-center justify-center transition-colors"
-                aria-label="GitHub"
+                className="transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.6)]"
+                aria-label="GitHub Profile"
               >
-                <GithubLogo className="w-4 h-4 text-white" />
+                <GithubLogo className="w-7 h-7 sm:w-8 sm:h-8 text-white" color="#FFFFFF" />
               </a>
+
               <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="touch-target w-10 h-10 rounded-xl bg-zinc-900 text-zinc-300 hover:text-white border border-white/5 flex items-center justify-center transition-colors"
-                aria-label="LinkedIn"
+                className="transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_0_10px_rgba(10,102,194,0.6)]"
+                aria-label="LinkedIn Profile"
               >
-                <LinkedinLogo className="w-4 h-4 text-[#0A66C2]" />
+                <LinkedinLogo className="w-7 h-7 sm:w-8 sm:h-8" />
               </a>
             </div>
           </div>
