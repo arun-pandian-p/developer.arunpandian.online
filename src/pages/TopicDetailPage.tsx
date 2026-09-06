@@ -424,30 +424,32 @@ export const TopicDetailPage: React.FC<TopicDetailPageProps> = ({ defaultTopic }
         </div>
       </section>
 
-      {/* ── 2.5 ALL PROJECTS GRID (PROJECTS HUB OVERVIEW) ── */}
+      {/* ── 2.5 ALL PROJECTS VISUAL GALLERY (BG WHITE & IMAGE-FIRST WITH ROUTE LINKS) ── */}
       {currentTopicKey === 'projects' && (
-        <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#0c0c0e] border-b border-zinc-800 relative z-10">
-          <div className="max-w-6xl mx-auto space-y-8">
+        <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-white border-y border-zinc-200 text-zinc-900 relative overflow-hidden">
+          {/* Subtle White Grid Texture */}
+          <div className="absolute inset-0 bg-white-grid opacity-60 pointer-events-none" />
+
+          <div className="max-w-6xl mx-auto relative z-10 space-y-8">
+            
+            {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
               <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono-code font-bold uppercase tracking-wider">
-                  <Sparkles size={13} className="text-amber-400 animate-pulse" />
-                  All Production Deliverables &amp; Live Systems
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-800 text-xs font-mono-code font-bold uppercase tracking-wider">
+                  <Sparkles size={13} className="text-amber-600" />
+                  Visual Project Gallery
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black font-space-grotesk text-white tracking-tight">
-                  Featured Client &amp; SaaS Project Portfolio
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-space-grotesk text-zinc-900 tracking-tight">
+                  Featured Applications &amp; Deliverables
                 </h2>
-                <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl font-light">
-                  Click any project card to inspect technical specifications, review architecture metrics, or launch live production demos.
-                </p>
               </div>
-              <span className="text-xs font-mono-code text-amber-400 font-bold shrink-0 bg-amber-500/10 px-3.5 py-1.5 rounded-full border border-amber-500/20">
-                6 Verified Engineering Deliverables
+              <span className="text-xs font-mono-code text-zinc-500">
+                Click any project image to inspect specs &amp; launch demo
               </span>
             </div>
 
-            {/* 6 Project Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            {/* Pure Image-Centric Responsive Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
               {ALL_PROJECT_CARDS.map((proj) => {
                 const isCurrent = activeSubId === proj.id;
                 return (
@@ -459,93 +461,44 @@ export const TopicDetailPage: React.FC<TopicDetailPageProps> = ({ defaultTopic }
                       const el = document.getElementById('project-detail-section');
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className={`group relative rounded-3xl bg-zinc-900/90 border transition-all duration-300 overflow-hidden flex flex-col justify-between cursor-pointer hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-amber-500/15 ${
+                    className={`group relative rounded-2xl overflow-hidden bg-zinc-100 border transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl hover:-translate-y-1 ${
                       isCurrent
-                        ? 'border-amber-400 ring-2 ring-amber-400/60 shadow-xl shadow-amber-500/20'
-                        : 'border-zinc-800/90 hover:border-zinc-700'
+                        ? 'border-amber-500 ring-2 ring-amber-500/40 shadow-md'
+                        : 'border-zinc-200/90 hover:border-zinc-400'
                     }`}
                   >
-                    {/* Picture Header with Image and Overlays */}
-                    <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">
+                    {/* Full-bleed Project Image */}
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-950">
                       <img
                         src={proj.imageUrl}
                         alt={proj.title}
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 will-change-transform"
+                        className="w-full h-full object-cover object-center group-hover:scale-104 transition-transform duration-500 will-change-transform"
                         onError={(e) => {
                           (e.target as HTMLImageElement).src = '/assets/arun-banner-brand.png';
                         }}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
 
-                      {/* Top Badges */}
-                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
-                        <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-[10px] font-mono-code font-bold uppercase tracking-wider text-amber-300">
+                      {/* Smooth dark gradient overlay on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
+
+                      {/* Top Pill: Category */}
+                      <div className="absolute top-3 left-3 flex items-center gap-2">
+                        <span className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-[10px] font-mono-code font-bold uppercase tracking-wider text-white shadow-sm">
                           {proj.category}
                         </span>
-                        <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-500/40 text-[10px] font-mono-code font-bold text-emerald-300 flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                          {proj.status}
-                        </span>
                       </div>
 
-                      {/* Active Selection Indicator */}
-                      {isCurrent && (
-                        <div className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full bg-amber-400 text-zinc-950 text-[10px] font-mono-code font-black uppercase tracking-wider">
-                          Active Selection
+                      {/* Bottom Info Bar Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-4 space-y-1 text-white">
+                        <div className="flex items-center justify-between gap-2">
+                          <h3 className="text-sm sm:text-base font-bold font-space-grotesk text-white group-hover:text-amber-300 transition-colors truncate">
+                            {proj.title}
+                          </h3>
+                          <ArrowRight size={16} className="text-amber-400 group-hover:translate-x-1 transition-transform shrink-0" />
                         </div>
-                      )}
-                    </div>
-
-                    {/* Card Content */}
-                    <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
-                      <div className="space-y-2">
-                        <h3 className="text-base sm:text-lg font-bold font-space-grotesk text-white group-hover:text-amber-300 transition-colors line-clamp-1">
-                          {proj.title}
-                        </h3>
-                        <p className="text-xs text-amber-400/90 font-mono-code font-semibold line-clamp-1">
+                        <p className="text-[11px] font-mono-code text-zinc-300 truncate">
                           {proj.tagline}
                         </p>
-                        <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">
-                          {proj.description}
-                        </p>
-                      </div>
-
-                      {/* Tech Stack Chips */}
-                      <div className="space-y-3 pt-2">
-                        <div className="flex flex-wrap gap-1.5">
-                          {proj.tags.slice(0, 4).map((tag, tIdx) => (
-                            <span
-                              key={tIdx}
-                              className="px-2 py-0.5 rounded-md bg-zinc-800/80 border border-zinc-700/60 text-[10px] font-mono-code text-zinc-300"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* Interactive Route Link Buttons */}
-                        <div className="pt-2 flex items-center justify-between gap-2 border-t border-zinc-800">
-                          <button
-                            type="button"
-                            className="text-xs font-mono-code font-bold text-amber-400 group-hover:text-amber-300 flex items-center gap-1"
-                          >
-                            <span>Inspect Specs</span>
-                            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-                          </button>
-
-                          {proj.liveUrl && (
-                            <a
-                              href={proj.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-mono-code font-semibold flex items-center gap-1 transition-colors"
-                            >
-                              <span>Live App</span>
-                              <ExternalLink size={11} />
-                            </a>
-                          )}
-                        </div>
                       </div>
                     </div>
                   </div>
