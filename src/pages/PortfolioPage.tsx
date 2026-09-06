@@ -79,9 +79,10 @@ export const PortfolioPage: React.FC = () => {
           onOpenIntake={() => setIsIntakeOpen(true)}
         />
 
-        <div className="bg-white text-zinc-900 w-full overflow-hidden">
-          <TrustMarquee />
+        {/* Seamless Sub-Hero Tech Stack Bar */}
+        <TrustMarquee />
 
+        <div className="bg-white text-zinc-900 w-full overflow-hidden">
           <WhatIBuildSection
             onOpenIntake={() => setIsIntakeOpen(true)}
           />
