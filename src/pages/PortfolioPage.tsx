@@ -72,26 +72,14 @@ export const PortfolioPage: React.FC = () => {
       />
 
       {/* Main Content Assembly */}
-      <main>
-        {/* Hero: fixed behind everything, removed from flow via absolute */}
-        <div className="relative min-h-screen">
-          <div className="sticky top-0 min-h-screen z-0">
-            <HeroSection
-              isReady={true}
-              onOpenWhatsApp={() => setIsWhatsAppOpen(true)}
-              onOpenIntake={() => setIsIntakeOpen(true)}
-            />
-          </div>
-        </div>
+      <main className="w-full overflow-hidden">
+        {/* Flagship Hero Section with Vertical Showcase Marquee */}
+        <VerticalProjectShowcase
+          onOpenWhatsApp={() => setIsWhatsAppOpen(true)}
+          onOpenIntake={() => setIsIntakeOpen(true)}
+        />
 
-        {/* White / Dark seamless card slides UP over the pinned hero with parallax */}
-        <div
-          style={{ position: 'relative', zIndex: 10, marginTop: '-20px' }}
-          className="bg-[#09090b] text-white w-full overflow-hidden rounded-t-[2.5rem] shadow-[0_-24px_80px_rgba(0,0,0,0.6)]"
-        >
-          {/* Continuous Vertical Project Showcase */}
-          <VerticalProjectShowcase />
-
+        <div className="bg-white text-zinc-900 w-full overflow-hidden">
           <TrustMarquee />
 
           <WhatIBuildSection

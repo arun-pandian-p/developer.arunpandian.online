@@ -57,7 +57,15 @@ const DEFAULT_SHOWCASE_ITEMS: VerticalShowcaseItem[] = [
   },
 ];
 
-export const VerticalProjectShowcase: React.FC = () => {
+interface VerticalProjectShowcaseProps {
+  onOpenIntake?: () => void;
+  onOpenWhatsApp?: () => void;
+}
+
+export const VerticalProjectShowcase: React.FC<VerticalProjectShowcaseProps> = ({
+  onOpenIntake,
+  onOpenWhatsApp,
+}) => {
   const navigate = useNavigate();
   const { cmsData, isElementVisible } = useCMS();
   const [isHovered, setIsHovered] = useState(false);
@@ -87,70 +95,75 @@ export const VerticalProjectShowcase: React.FC = () => {
   };
 
   return (
-    <section className="relative py-20 sm:py-28 lg:py-32 bg-[#09090b] text-white border-b border-zinc-800/80 overflow-hidden">
+    <section className="relative pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-24 lg:pb-28 bg-[#09090b] text-white border-b border-zinc-800/80 overflow-hidden">
       
       {/* Background Subtle Ambient Glows */}
       <div className="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[350px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* ─────────────────────────────────────────────────────────────────── */}
-          {/* 1. LEFT COLUMN: TYPOGRAPHY, POSITIONING, VALUE METRICS & CTA       */}
+          {/* 1. LEFT COLUMN: CONCISE HERO TYPOGRAPHY, VALUE METRICS & CTAS      */}
           {/* ─────────────────────────────────────────────────────────────────── */}
-          <div className="lg:col-span-5 space-y-7 text-left">
+          <div className="lg:col-span-5 space-y-6 text-left">
             
             {/* Section Eyebrow Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono-code font-bold uppercase tracking-wider shadow-sm">
               <Sparkles size={14} className="text-amber-400 animate-pulse" />
-              <span>{config?.sectionBadge || 'SELECTED WORK & DELIVERABLES'}</span>
+              <span>{config?.sectionBadge || 'AVAILABLE FOR REMOTE & CONTRACT'}</span>
             </div>
 
-            {/* Main Headline */}
-            <div className="space-y-2">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-space-grotesk tracking-tight text-white leading-[1.08]">
-                {config?.heading || 'Digital Products,'}{' '}
+            {/* Concise Main Headline */}
+            <div className="space-y-1">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-space-grotesk tracking-tight text-white leading-[1.08]">
+                {config?.heading || 'SaaS Platforms'}{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F29F67] via-amber-400 to-[#E8824A]">
-                  {config?.highlightText || 'SaaS Platforms'}
-                </span>{' '}
-                &amp; Intelligent AI Tools.
-              </h2>
+                  {config?.highlightText || '& AI Systems.'}
+                </span>
+              </h1>
             </div>
 
-            {/* Description */}
-            <p className="text-base sm:text-lg text-zinc-300 leading-relaxed font-light">
+            {/* Concise Description */}
+            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-light max-w-lg">
               {config?.description ||
-                'High-velocity software engineering across multi-tenant web applications, autonomous LLM agent pipelines, and enterprise automation backends built for scale.'}
+                'Engineering high-performance web platforms, autonomous LLM agents, and automated enterprise pipelines that scale.'}
             </p>
 
             {/* Feature / Metric Highlight Pills */}
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              <div className="p-4 rounded-2xl bg-zinc-900/90 border border-zinc-800 shadow-sm space-y-1">
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-zinc-900/90 border border-zinc-800 shadow-sm space-y-0.5">
                 <div className="text-xl font-black text-[#F29F67] font-mono-code">20+ Projects</div>
-                <div className="text-[11px] text-zinc-400 font-bold uppercase">Production Shipped</div>
+                <div className="text-[10px] sm:text-[11px] text-zinc-400 font-bold uppercase">Shipped Production</div>
               </div>
-              <div className="p-4 rounded-2xl bg-zinc-900/90 border border-zinc-800 shadow-sm space-y-1">
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-zinc-900/90 border border-zinc-800 shadow-sm space-y-0.5">
                 <div className="text-xl font-black text-emerald-400 font-mono-code">&lt; 600ms</div>
-                <div className="text-[11px] text-zinc-400 font-bold uppercase">Average Latency</div>
+                <div className="text-[10px] sm:text-[11px] text-zinc-400 font-bold uppercase">Average Latency</div>
               </div>
             </div>
 
-            {/* CTA Button */}
-            <div className="pt-2 flex flex-wrap items-center gap-4">
+            {/* Hero Action Buttons */}
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
               <button
-                onClick={() => navigate('/projects')}
-                className="group flex items-center justify-center gap-3 px-7 py-4 rounded-full bg-gradient-to-r from-[#F29F67] to-[#E8824A] hover:opacity-95 text-zinc-950 font-black text-xs sm:text-sm font-mono-code uppercase tracking-wider shadow-lg shadow-orange-500/25 transition-all transform hover:-translate-y-0.5 cursor-pointer"
+                onClick={() => {
+                  if (onOpenIntake) onOpenIntake();
+                  else navigate('/projects');
+                }}
+                className="group flex items-center justify-between sm:justify-center gap-3 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#F29F67] to-[#E8824A] hover:opacity-95 text-zinc-950 font-black text-xs sm:text-sm font-mono-code uppercase tracking-wider shadow-lg shadow-orange-500/25 transition-all transform hover:-translate-y-0.5 cursor-pointer min-h-[48px]"
               >
-                <span>{config?.ctaText || 'View All Projects'}</span>
+                <span>{config?.ctaText || 'DISCUSS A PROJECT'}</span>
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
 
               <button
-                onClick={() => navigate('/services')}
-                className="px-6 py-4 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs sm:text-sm font-mono-code border border-zinc-700 transition-colors cursor-pointer"
+                onClick={() => {
+                  if (onOpenWhatsApp) onOpenWhatsApp();
+                  else window.open('https://wa.me/918248960558', '_blank');
+                }}
+                className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs sm:text-sm font-mono-code border border-zinc-700 transition-colors cursor-pointer min-h-[48px]"
               >
-                <span>Explore Services</span>
+                <span>Chat on WhatsApp</span>
               </button>
             </div>
           </div>
