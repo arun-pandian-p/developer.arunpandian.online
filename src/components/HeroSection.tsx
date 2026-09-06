@@ -82,17 +82,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
           </div>
         )}
 
-        {/* Big Bold Headline matching screenshot */}
+        {/* Big Bold Headline with Fluid Clamp Scale */}
         <div className="space-y-1 font-syne select-none mb-6">
           {isElementVisible('heroHeadline1') && (
-            <div className={`text-[2.6rem] sm:text-[3.8rem] lg:text-[5rem] xl:text-[5.4rem] font-black leading-[0.88] tracking-tight text-white drop-shadow-2xl transition-all duration-600 ${
+            <div className={`text-[clamp(2rem,5.5vw,5.2rem)] font-black leading-[0.92] tracking-tight text-white drop-shadow-2xl transition-all duration-600 ${
               revealStep >= 2 ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'
             }`}>
               {hero.headlineLine1 ?? 'FULL-STACK DEVELOPER &'}
             </div>
           )}
           {isElementVisible('heroOutline') && (
-            <div className={`text-[2.6rem] sm:text-[3.8rem] lg:text-[5rem] xl:text-[5.4rem] font-black leading-[0.88] tracking-tight text-stroke-2 text-transparent hover:text-white drop-shadow-2xl transition-all duration-600 ${
+            <div className={`text-[clamp(2rem,5.5vw,5.2rem)] font-black leading-[0.92] tracking-tight text-stroke-2 text-transparent hover:text-white drop-shadow-2xl transition-all duration-600 ${
               revealStep >= 2 ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'
             }`}>
               {hero.headlineOutline ?? 'SAAS'}
@@ -100,7 +100,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenWhatsApp, onOpen
           )}
           {isElementVisible('heroHighlight') && (
             <div
-              className={`text-[2.6rem] sm:text-[3.8rem] lg:text-[5rem] xl:text-[5.4rem] font-black leading-[0.88] tracking-tight drop-shadow-2xl transition-all duration-600 ${
+              className={`text-[clamp(2rem,5.5vw,5.2rem)] font-black leading-[0.92] tracking-tight drop-shadow-2xl transition-all duration-600 ${
                 revealStep >= 3 ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-8 blur-sm'
               }`}
               style={{ color: cmsData.theme.accentColor || '#fda228' }}

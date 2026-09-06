@@ -108,10 +108,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenWhatsApp, onOp
 
             {/* Direct Connect Actions */}
             {isElementVisible('aboutActions', true) && (
-              <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-zinc-200">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-4 border-t border-zinc-200">
                 <button
                   onClick={onOpenWhatsApp}
-                  className="px-6 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-mono-code font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-[#25D366]/20 cursor-pointer"
+                  className="px-6 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-mono-code font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md shadow-[#25D366]/20 cursor-pointer min-h-[48px]"
                 >
                   <WhatsappLogo className="w-4 h-4 text-white" />
                   <span>WhatsApp ({about.whatsappNumber || '+91 8248960558'})</span>
@@ -119,18 +119,18 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenWhatsApp, onOp
 
                 <button
                   onClick={onOpenIntake}
-                  className="px-6 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-mono-code font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md cursor-pointer"
+                  className="px-6 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-mono-code font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer min-h-[48px]"
                 >
                   <span>Hire Arun Pandian</span>
                   <ArrowUpRight size={15} />
                 </button>
 
-                <div className="flex items-center gap-2 ml-auto">
+                <div className="flex items-center justify-center sm:justify-start gap-2 sm:ml-auto pt-2 sm:pt-0">
                   <a
                     href={about.githubUrl || 'https://github.com/arun-pandian-p'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 transition-colors"
+                    className="p-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 transition-colors flex items-center justify-center min-w-[44px] min-h-[44px]"
                     aria-label="GitHub Profile"
                   >
                     <GithubLogo className="w-4 h-4" />
@@ -139,7 +139,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenWhatsApp, onOp
                     href={about.linkedinUrl || 'https://linkedin.com/in/arunpandian-p'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 transition-colors"
+                    className="p-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 transition-colors flex items-center justify-center min-w-[44px] min-h-[44px]"
                     aria-label="LinkedIn Profile"
                   >
                     <LinkedinLogo className="w-4 h-4" />
