@@ -232,8 +232,47 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, onOpenIntake, onOpenAdmin
           {/* Nav Grid */}
           <div className="p-4 sm:p-6 md:p-10 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-stretch overflow-y-auto">
             
-            {/* 4 Navigation Columns (7 cols on desktop) */}
-            <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-6">
+            {/* ─── MOBILE ONLY: 4 Main Core Navigation Cards ─── */}
+            <div className="md:hidden space-y-2.5">
+              <div className="text-[10px] font-mono-code font-bold uppercase tracking-widest text-zinc-400 px-1 mb-2">
+                Navigation
+              </div>
+              <div className="grid grid-cols-2 gap-2.5">
+                {[
+                  { key: 'home', title: 'Home', desc: 'Overview & Studio', href: '/', badge: 'Studio' },
+                  { key: 'services', title: 'Services', desc: 'Full-Stack & AI', href: '/services', badge: 'Core' },
+                  { key: 'projects', title: 'Projects', desc: 'Case Studies', href: '/projects', badge: 'Live' },
+                  { key: 'freelance', title: 'Freelance', desc: 'Fiverr & Upwork', href: '/freelance', badge: '5★' },
+                ].map((item) => (
+                  <button
+                    key={item.key}
+                    onClick={() => {
+                      close();
+                      navigate(item.href);
+                    }}
+                    className="p-4 rounded-2xl bg-white border border-zinc-200/90 shadow-sm hover:border-[#fda228] hover:shadow-md transition-all text-left flex flex-col justify-between gap-3 active:scale-[0.98] cursor-pointer"
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <span className="text-[10px] font-mono-code font-bold uppercase tracking-wider text-amber-800 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                        {item.badge}
+                      </span>
+                      <ArrowUpRight size={14} className="text-zinc-400" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-bold font-syne text-zinc-900 leading-tight">
+                        {item.title}
+                      </h4>
+                      <p className="text-[11px] text-zinc-500 font-mono-code mt-0.5">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* ─── DESKTOP ONLY: Full 4 Navigation Columns with all subtopics ─── */}
+            <div className="hidden md:grid md:col-span-7 grid-cols-4 gap-6">
               {NAV_COLUMNS.map((col) => (
                 <div key={col.title} className="space-y-3">
                   <button

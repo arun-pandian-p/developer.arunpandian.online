@@ -326,7 +326,7 @@ export const TopicDetailPage: React.FC<TopicDetailPageProps> = ({ defaultTopic }
       />
 
       {/* 2. Sleek Dark Hero Section with High-Visibility Brand Photo Background */}
-      <section className="relative pt-28 sm:pt-36 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-[#09090b] border-b border-zinc-800/80 overflow-hidden">
+      <section className="relative pt-24 sm:pt-32 md:pt-36 pb-8 sm:pb-12 md:pb-16 px-4 sm:px-6 lg:px-8 bg-[#09090b] border-b border-zinc-800/80 overflow-hidden">
         {/* Full-bleed High-Visibility Brand Photo Background */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img
@@ -337,56 +337,56 @@ export const TopicDetailPage: React.FC<TopicDetailPageProps> = ({ defaultTopic }
               (e.target as HTMLImageElement).src = '/assets/hero.png';
             }}
           />
-          {/* Subtle directional gradient to preserve text legibility on the left while keeping Arun Pandian clearly visible on the right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#09090b]/95 via-[#09090b]/65 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/30 to-transparent" />
+          {/* Enhanced Mobile Gradient to guarantee 100% text clarity across all mobile viewports */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/85 to-[#09090b]/40 sm:bg-gradient-to-r sm:from-[#09090b]/95 sm:via-[#09090b]/65 sm:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/20 to-transparent hidden sm:block" />
         </div>
 
         <div className="max-w-6xl mx-auto relative z-10">
           
           {/* Breadcrumb Navigation */}
-          <div className="flex items-center gap-2 text-xs font-mono-code text-zinc-400 mb-6">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-mono-code text-zinc-400 mb-4 sm:mb-6 flex-wrap">
             <Link to="/" className="hover:text-amber-400 transition-colors flex items-center gap-1 font-semibold">
-              <ArrowLeft size={14} /> Home
+              <ArrowLeft size={13} /> Home
             </Link>
             <span className="text-zinc-600">/</span>
             <span className="text-zinc-300 font-bold uppercase">{topicConfig.title}</span>
             <span className="text-zinc-600">/</span>
-            <span className="text-amber-400 font-bold">{activeDetails.title}</span>
+            <span className="text-amber-400 font-bold truncate max-w-[180px] sm:max-w-none">{activeDetails.title}</span>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-            <div className="space-y-4 max-w-3xl">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 sm:gap-8">
+            <div className="space-y-3 sm:space-y-4 max-w-3xl">
               {/* Pillar Badge */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono-code uppercase tracking-wider font-bold">
-                <Sparkles size={14} />
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] sm:text-xs font-mono-code uppercase tracking-wider font-bold">
+                <Sparkles size={13} />
                 <span>{topicConfig.badge}</span>
               </div>
 
               {/* Main Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.12] text-white">
                 {topicConfig.heroHeadline}
               </h1>
 
               {/* Subtitle */}
-              <p className="text-base sm:text-lg text-zinc-300 leading-relaxed font-normal max-w-2xl">
+              <p className="text-xs sm:text-base md:text-lg text-zinc-300 leading-relaxed font-light max-w-2xl">
                 {topicConfig.heroSubtitle}
               </p>
             </div>
 
             {/* Quick Action CTAs */}
-            <div className="flex flex-wrap sm:flex-col gap-3 shrink-0">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 shrink-0 w-full sm:w-auto">
               <button
                 onClick={() => setIsIntakeOpen(true)}
-                className="px-6 py-3.5 rounded-full bg-gradient-to-r from-[#F29F67] to-[#E8824A] hover:opacity-95 text-zinc-950 font-black text-xs font-mono-code uppercase tracking-wider shadow-lg shadow-orange-500/20 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#F29F67] to-[#E8824A] hover:opacity-95 text-zinc-950 font-black text-xs font-mono-code uppercase tracking-wider shadow-lg shadow-orange-500/20 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
               >
                 <span>Start Project Intake</span>
-                <ArrowRight size={15} />
+                <ArrowRight size={14} />
               </button>
 
               <button
                 onClick={() => setIsWhatsAppOpen(true)}
-                className="px-6 py-3.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold text-xs font-mono-code transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-3.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-bold text-xs font-mono-code transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm min-h-[44px]"
               >
                 <WhatsappLogo className="w-4 h-4 text-emerald-400" />
                 <span>Chat on WhatsApp</span>
@@ -394,8 +394,8 @@ export const TopicDetailPage: React.FC<TopicDetailPageProps> = ({ defaultTopic }
             </div>
           </div>
 
-          {/* Subtopic Switcher Pills Bar */}
-          <div className="mt-10 pt-6 border-t border-zinc-800 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+          {/* Subtopic Switcher Pills Bar with Touch Pan Momentum on Mobile */}
+          <div className="mt-6 sm:mt-8 md:mt-10 pt-4 sm:pt-6 border-t border-zinc-800/80 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none touch-pan-x">
             {topicConfig.subtopics.map((sub) => {
               const isActive = activeSubId === sub.id;
               return (
@@ -405,7 +405,7 @@ export const TopicDetailPage: React.FC<TopicDetailPageProps> = ({ defaultTopic }
                     setActiveSubId(sub.id);
                     navigate(`/topic/${currentTopicKey}/${sub.id}`);
                   }}
-                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer shrink-0 ${
                     isActive
                       ? 'bg-gradient-to-r from-[#F29F67] to-[#E8824A] text-zinc-950 shadow-md font-black scale-102'
                       : 'bg-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-white border border-zinc-800'
