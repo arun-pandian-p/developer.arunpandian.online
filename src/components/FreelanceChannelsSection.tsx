@@ -1,14 +1,23 @@
 import React from 'react';
-import { FREELANCE_PLATFORMS } from '../data/cmsData';
 import { Star, ExternalLink, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { FiverrLogo, UpworkLogo, FreelancerLogo } from './common/BrandLogos';
+import { useCMS } from '../context/CMSContext';
 
 export const FreelanceChannelsSection: React.FC = () => {
+  const { cmsData, isElementVisible } = useCMS();
+  const allPlatforms = cmsData.freelanceChannels && cmsData.freelanceChannels.length > 0
+    ? cmsData.freelanceChannels
+    : [];
+
+  const platforms = allPlatforms.filter((p) => isElementVisible(`channel_${p.name}`, true));
+
+  if (!isElementVisible('freelanceSection', true) || platforms.length === 0) return null;
+
   const getLogo = (name: string) => {
     if (name === 'Fiverr') return <FiverrLogo className="w-7 h-7 shrink-0" />;
     if (name === 'Upwork') return <UpworkLogo className="w-7 h-7 shrink-0" />;
-    if (name === 'Freelancer.com') return <FreelancerLogo className="w-7 h-7 shrink-0" />;
-    return null;
+    if (name === 'Freelancer.com' || name.includes('Freelancer')) return <FreelancerLogo className="w-7 h-7 shrink-0" />;
+    return <ShieldCheck className="w-7 h-7 text-emerald-600 shrink-0" />;
   };
 
   return (
@@ -37,7 +46,7 @@ export const FreelanceChannelsSection: React.FC = () => {
 
         {/* 3 Column Grid — Fiverr, Upwork, Freelancer.com */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {FREELANCE_PLATFORMS.map((platform, idx) => (
+          {platforms.map((platform, idx) => (
             <div
               key={idx}
               className="p-2 rounded-3xl bg-zinc-100/90 border border-zinc-200/90 shadow-sm hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
@@ -68,7 +77,7 @@ export const FreelanceChannelsSection: React.FC = () => {
 
                   {/* Highlights */}
                   <div className="space-y-2.5 pt-2">
-                    {platform.highlights.map((item, i) => (
+                    {(platform.highlights || []).map((item, i) => (
                       <div key={i} className="flex items-start gap-2.5 text-xs text-zinc-700 font-medium">
                         <CheckCircle2 size={14} className="text-emerald-600 shrink-0 mt-0.5" />
                         <span>{item}</span>
@@ -81,7 +90,7 @@ export const FreelanceChannelsSection: React.FC = () => {
                 <div className="pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-mono-code">
                   <span className="text-zinc-500 font-medium">Verified Account</span>
                   <a
-                    href={platform.profileUrl}
+                    href={platform.profileUrl || platform.url || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 font-bold text-zinc-900 hover:text-amber-600 transition-colors"

@@ -1,209 +1,350 @@
 import React, { useState, useEffect } from 'react';
-import { Layers, Sparkles, ArrowUpRight, Menu, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import {
+  Sparkles,
+  ArrowUpRight,
+  ArrowRight,
+  X,
+  Linkedin,
+  Github,
+  Clock,
+  LogIn,
+  Calendar,
+} from 'lucide-react';
+import {
+  XTwitterLogo,
+} from './common/BrandLogos';
 
 interface NavbarProps {
   theme: 'dark' | 'stone';
   setTheme: (t: 'dark' | 'stone') => void;
   onOpenIntake: () => void;
   onOpenAdmin: () => void;
+  onSelectSubTopic?: (topicKey: string) => void;
 }
 
-const NAV_LINKS = [
-  { href: '#services', label: 'SERVICES' },
-  { href: '#demos', label: 'DEMOS' },
-  { href: '#saas-showcase', label: 'SHOWCASE' },
-  { href: '#projects', label: 'PROJECTS' },
-  { href: '#freelance', label: 'PLATFORMS' },
-  { href: '#about', label: 'ABOUT' },
+const NAV_COLUMNS = [
+  {
+    key: 'home',
+    title: 'Home',
+    links: [
+      { label: 'About Studio', subId: 'studio-about', href: '#about' },
+      { label: 'Core Philosophy', subId: 'studio-philosophy', href: '#about' },
+      { label: 'Tech Stack & Engines', subId: 'studio-tech', href: '#tech-stack' },
+      { label: 'Work Process', subId: 'studio-process', href: '#about' },
+      { label: 'Brand Assets & Media', subId: 'studio-brand', href: '#about' },
+      { label: 'Contact Us', subId: 'studio-contact', href: '#about' },
+    ],
+  },
+  {
+    key: 'services',
+    title: 'Services',
+    links: [
+      { label: 'Full-Stack MERN & Next.js', subId: 'service-fullstack', href: '#services' },
+      { label: 'Autonomous AI Agents & RAG', subId: 'service-ai', href: '#services' },
+      { label: 'n8n Enterprise Automations', subId: 'service-n8n', href: '#services' },
+      { label: 'API & Microservices', subId: 'service-api', href: '#services' },
+      { label: 'Multi-Tenant SaaS', subId: 'service-saas', href: '#services', badge: 'New' },
+    ],
+  },
+  {
+    key: 'projects',
+    title: 'Projects',
+    links: [
+      { label: 'AI Agent Demo Assistant', subId: 'project-ai-demo', href: '#demos' },
+      { label: 'Zappy SaaS Platform', subId: 'project-zappy', href: '#projects' },
+      { label: 'Carpediem Tech Platform', subId: 'project-carpediem', href: '#projects' },
+      { label: 'Client Proof (PDF Letter)', subId: 'project-proof', href: '#projects' },
+    ],
+  },
+  {
+    key: 'freelance',
+    title: 'Freelance',
+    links: [
+      { label: 'Fiverr Top Rated Seller', subId: 'freelance-fiverr', href: '#freelance' },
+      { label: 'Upwork Enterprise Expert', subId: 'freelance-upwork', href: '#freelance' },
+      { label: 'Freelancer Verified', subId: 'freelance-freelancer', href: '#freelance' },
+      { label: 'Direct WhatsApp Contract', subId: 'freelance-whatsapp', href: 'https://wa.me/918248960558' },
+    ],
+  },
 ];
 
-export const Navbar: React.FC<NavbarProps> = ({
-  theme,
-  onOpenIntake,
-  onOpenAdmin
-}) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
+export const Navbar: React.FC<NavbarProps> = ({ theme, onOpenIntake, onOpenAdmin, onSelectSubTopic }) => {
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [timeDateString, setTimeDateString] = useState('');
 
+  // Live real-time date and clock update
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const updateTimeDate = () => {
+      const now = new Date();
+      const datePart = now.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+      });
+      const timePart = now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      });
+      setTimeDateString(`${datePart} • ${timePart}`);
+    };
+
+    updateTimeDate();
+    const interval = setInterval(updateTimeDate, 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileOpen]);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  const closeMobile = () => setMobileOpen(false);
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  const close = () => setMenuOpen(false);
 
   return (
     <>
-      <header className={`fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-7xl transition-all duration-300`}>
-        {/* Outer Shell Double-Bezel */}
+      {/* ─── Clean Floating Pill Navbar (Only Avatar & Hamburger) ─── */}
+      <header className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-[60] w-[94%] max-w-7xl">
         <div className={`p-1.5 rounded-[2rem] ring-1 transition-all duration-500 ${
           theme === 'dark'
             ? `bg-white/5 ring-white/10 backdrop-blur-2xl ${scrolled ? 'shadow-[0_16px_40px_rgba(0,0,0,0.9)]' : 'shadow-[0_8px_20px_rgba(0,0,0,0.5)]'}`
             : 'bg-black/5 ring-black/10 shadow-xl backdrop-blur-xl'
         }`}>
-          {/* Inner Core */}
-          <div className={`px-4 sm:px-5 py-2.5 sm:py-3 rounded-[calc(2rem-0.375rem)] flex items-center justify-between transition-colors ${
+          <div className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-[calc(2rem-0.375rem)] flex items-center justify-between transition-colors ${
             theme === 'dark'
               ? 'bg-zinc-950/90 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]'
               : 'bg-[#E6E1DA] text-zinc-900 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]'
           }`}>
-            
-            {/* Brand Identity */}
-            <a href="#" className="flex items-center gap-2.5 group shrink-0" aria-label="Arun Pandian - Home">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px] transition-transform duration-500 group-hover:scale-105 shrink-0">
-                <img 
-                  src="/assets/arun-headshot.webp" 
-                  alt="Developer Arun Pandian" 
+
+            {/* Brand Logo & Avatar (Using hero rounded image) */}
+            <a href="#" onClick={close} className="flex items-center gap-3 group shrink-0" aria-label="Home">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px] transition-transform duration-500 group-hover:scale-105 shrink-0 overflow-hidden">
+                <img
+                  src="/assets/arun-hero-avatar.png"
+                  alt="Arun Pandian"
                   className="w-full h-full object-cover rounded-full"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/assets/arun-headshot.webp';
+                  }}
                 />
               </div>
               <div className="shrink-0">
                 <div className="font-bold text-xs sm:text-sm tracking-tight flex items-center gap-1.5 font-syne whitespace-nowrap">
                   ARUN PANDIAN
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#fda228] animate-pulse"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#fda228] animate-pulse" />
                 </div>
                 <div className="text-[9px] text-zinc-400 font-mono-code uppercase tracking-widest whitespace-nowrap hidden xs:block">
-                  SaaS · AI · Automation
+                  SAAS · AI · AUTOMATION
                 </div>
               </div>
             </a>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden xl:flex items-center gap-5 text-[11px] font-mono-code uppercase tracking-wider whitespace-nowrap" aria-label="Main navigation">
-              {NAV_LINKS.map(link => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="hover:text-[#fda228] transition-colors duration-200 py-1"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-
-            {/* Action Controls */}
-            <div className="flex items-center gap-2">
-              {/* Admin CMS Trigger */}
-              <button
-                onClick={onOpenAdmin}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs font-mono-code rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-300 transition-colors min-h-[36px] cursor-pointer"
-              >
-                <Layers size={13} className="text-amber-400" />
-                <span>CMS</span>
-              </button>
-
-              {/* Start Project Button - lg+ only */}
-              <button
-                onClick={onOpenIntake}
-                className="hidden lg:flex items-center gap-2 pl-4 pr-1.5 py-1.5 text-xs font-bold font-mono-code rounded-full bg-[#fda228] hover:bg-amber-400 text-black transition-all shadow-lg shadow-amber-500/20 group min-h-[36px] cursor-pointer"
-                aria-label="Start a project"
-              >
-                <span>Start Project</span>
-                <div className="w-7 h-7 rounded-full bg-black/15 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-                  <ArrowUpRight size={13} className="text-black" />
-                </div>
-              </button>
-
-              {/* Hamburger Menu - visible below xl */}
-              <button
-                onClick={() => setMobileOpen(true)}
-                className="xl:hidden touch-target w-9 h-9 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-white/10 text-white flex items-center justify-center transition-colors cursor-pointer"
-                aria-label="Open navigation menu"
-                aria-expanded={mobileOpen}
-              >
-                <Menu size={18} />
-              </button>
-            </div>
+            {/* Clean Hamburger Menu Button on Right */}
+            <button
+              onClick={() => setMenuOpen((o) => !o)}
+              className="w-10 h-10 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-white/15 text-white flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {menuOpen ? (
+                <X size={18} />
+              ) : (
+                <span className="flex flex-col gap-[5px] w-4">
+                  <span className="block h-[1.5px] w-full bg-current rounded-full" />
+                  <span className="block h-[1.5px] w-3/4 bg-current rounded-full ml-auto" />
+                  <span className="block h-[1.5px] w-full bg-current rounded-full" />
+                </span>
+              )}
+            </button>
 
           </div>
         </div>
       </header>
 
-      {/* Mobile Nav Overlay */}
-      {mobileOpen && (
-        <div
-          className="mobile-nav-overlay xl:hidden"
-          onClick={closeMobile}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Mobile Nav Drawer */}
+      {/* ─── Mega Menu Backdrop ─── */}
       <div
-        className={`mobile-nav-drawer xl:hidden ${mobileOpen ? 'open' : 'closed'}`}
+        className="fixed inset-0 z-[65] bg-black/60 backdrop-blur-md transition-opacity duration-300"
+        style={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? 'auto' : 'none' }}
+        onClick={close}
+        aria-hidden="true"
+      />
+
+      {/* ─── Mega Menu Panel ─── */}
+      <div
+        className="fixed inset-x-0 top-0 z-[70] transition-transform duration-500 ease-in-out p-3 sm:p-5"
+        style={{ transform: menuOpen ? 'translateY(0)' : 'translateY(-115%)' }}
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation menu"
       >
-        {/* Drawer Header */}
-        <div className="flex items-center justify-between p-5 border-b border-white/10">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px]">
-              <img src="/assets/arun-headshot.webp" alt="Developer Arun Pandian" className="w-full h-full object-cover rounded-full" />
-            </div>
-            <span className="font-bold text-sm text-white font-syne tracking-tight">ARUN PANDIAN</span>
-          </div>
-          <button
-            onClick={closeMobile}
-            className="touch-target w-9 h-9 rounded-full bg-zinc-900 border border-white/10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-            aria-label="Close navigation menu"
-          >
-            <X size={18} />
-          </button>
-        </div>
+        <div className="max-w-6xl mx-auto rounded-[2rem] bg-[#F9F8F3] shadow-[0_32px_100px_rgba(0,0,0,0.5)] overflow-hidden border border-zinc-200/80 text-zinc-900">
 
-        {/* Status badge */}
-        <div className="mx-5 mt-5 flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-950/50 border border-emerald-500/20">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
-          <span className="text-xs font-mono-code text-emerald-400">Available for freelance projects</span>
-        </div>
+          {/* Top Bar: Clean Brand in Center & Close Button (No Globe Icon) */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200/70">
+            <div className="w-9 h-9" /> {/* Spacer to balance center alignment */}
 
-        {/* Nav links */}
-        <nav className="p-5 space-y-1" aria-label="Mobile navigation">
-          {NAV_LINKS.map((link, idx) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={closeMobile}
-              className="flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-mono-code font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:bg-zinc-900 transition-all cursor-pointer"
-              style={{ animationDelay: `${idx * 50}ms` }}
-            >
-              <span>{link.label}</span>
-              <ArrowUpRight size={14} className="text-zinc-600" />
+            <a href="#" onClick={close} className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[1.5px] overflow-hidden">
+                <img
+                  src="/assets/arun-hero-avatar.png"
+                  alt="Arun Pandian"
+                  className="w-full h-full object-cover rounded-full"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/assets/arun-headshot.webp';
+                  }}
+                />
+              </div>
+              <span className="font-syne font-bold text-base sm:text-lg text-zinc-900 tracking-tight">
+                Arun Pandian Studio
+              </span>
             </a>
-          ))}
-        </nav>
 
-        {/* Mobile CTAs */}
-        <div className="px-5 pb-8 space-y-3 border-t border-white/10 pt-5">
-          <button
-            onClick={() => { onOpenIntake(); closeMobile(); }}
-            className="w-full flex items-center justify-between pl-5 pr-2 py-3 rounded-full bg-[#fda228] hover:bg-amber-400 text-black font-bold text-sm font-mono-code uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 min-h-[52px] cursor-pointer"
-          >
-            <span>Start a Project</span>
-            <div className="w-9 h-9 rounded-full bg-black/15 flex items-center justify-center">
-              <Sparkles size={16} className="text-black" />
+            <button
+              onClick={close}
+              className="w-9 h-9 rounded-full bg-zinc-950 flex items-center justify-center text-white hover:bg-zinc-800 transition-colors cursor-pointer shadow-sm"
+              aria-label="Close"
+            >
+              <X size={16} />
+            </button>
+          </div>
+
+          {/* Nav Grid */}
+          <div className="p-6 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+            
+            {/* 4 Navigation Columns (7 cols on desktop) */}
+            <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-6">
+              {NAV_COLUMNS.map((col) => (
+                <div key={col.title} className="space-y-3">
+                  <button
+                    onClick={() => {
+                      close();
+                      navigate(`/topic/${col.key}`);
+                    }}
+                    className="flex items-center gap-1 text-xs font-bold text-amber-800 hover:text-amber-600 uppercase tracking-widest font-mono-code cursor-pointer"
+                  >
+                    <span>{col.title}</span>
+                    <ArrowUpRight size={12} className="text-amber-700" />
+                  </button>
+                  <ul className="space-y-2.5">
+                    {col.links.map((link) => (
+                      <li key={link.label}>
+                        <button
+                          onClick={() => {
+                            close();
+                            if (link.href && link.href.startsWith('http')) {
+                              window.open(link.href, '_blank', 'noopener,noreferrer');
+                              return;
+                            }
+                            if (link.subId) {
+                              navigate(`/topic/${col.key}/${link.subId}`);
+                            } else {
+                              const target = document.querySelector(link.href);
+                              if (target) target.scrollIntoView({ behavior: 'smooth' });
+                            }
+                          }}
+                          className="text-[14px] text-zinc-700 hover:text-zinc-950 font-medium transition-colors leading-snug flex items-center gap-1.5 cursor-pointer text-left"
+                        >
+                          <span>{link.label}</span>
+                          {link.badge && (
+                            <span className="px-1.5 py-0.2 rounded-full bg-amber-200 text-amber-900 text-[9px] font-bold uppercase">
+                              {link.badge}
+                            </span>
+                          )}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          </button>
 
-          <button
-            onClick={() => { onOpenAdmin(); closeMobile(); }}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-white/10 text-zinc-400 text-xs font-mono-code transition-all min-h-[44px] cursor-pointer"
-          >
-            <Layers size={14} className="text-amber-400" />
-            <span>Admin CMS</span>
-          </button>
+            {/* Right Column: Feature Card & Quick Action Buttons */}
+            <div className="md:col-span-5 flex flex-col justify-between space-y-4">
+              
+              {/* Feature Gradient Card */}
+              <div
+                onClick={() => {
+                  onOpenIntake();
+                  close();
+                }}
+                className="relative rounded-3xl overflow-hidden cursor-pointer group p-6 sm:p-8 flex flex-col justify-end min-h-[180px] shadow-lg transition-transform hover:scale-[1.01]"
+                style={{
+                  background: 'linear-gradient(145deg, #666669 0%, #2a2a2d 60%, #151517 100%)',
+                }}
+              >
+                <div className="absolute top-4 left-4 px-2.5 py-0.5 rounded-full bg-white/20 text-[10px] font-bold text-white uppercase tracking-wider backdrop-blur-md">
+                  NEW
+                </div>
+                <div className="relative z-10 space-y-1">
+                  <h3 className="text-white font-syne font-bold text-xl sm:text-2xl leading-tight">
+                    Golden Architecture
+                  </h3>
+                  <p className="text-zinc-300 text-xs leading-relaxed">
+                    Secure your future with autonomous AI agents &amp; multi-tenant SaaS platforms.
+                  </p>
+                </div>
+              </div>
+
+              {/* Action Buttons: Start Project & Login inside Mega-Menu */}
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => {
+                    onOpenIntake();
+                    close();
+                  }}
+                  className="py-3 px-4 rounded-xl bg-[#fda228] hover:bg-amber-400 text-black font-extrabold text-xs font-mono-code uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span>Start Project</span>
+                  <ArrowUpRight size={14} className="stroke-[2.5]" />
+                </button>
+
+                <button
+                  onClick={() => {
+                    onOpenAdmin();
+                    close();
+                  }}
+                  className="py-3 px-4 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white font-bold text-xs font-mono-code uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <LogIn size={14} className="text-[#fda228]" />
+                  <span>Login</span>
+                </button>
+              </div>
+
+              {/* Bottom Social Icons + Live Realtime Date & Clock */}
+              <div className="p-4 rounded-2xl bg-white/80 border border-zinc-200/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <a href="https://linkedin.com/in/arunpandian-p" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 transition-colors">
+                    <Linkedin size={13} />
+                  </a>
+                  <a href="https://github.com/arun-pandian-p" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 transition-colors">
+                    <Github size={13} />
+                  </a>
+                  <a href="https://x.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full border border-zinc-200 flex items-center justify-center text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 transition-colors">
+                    <XTwitterLogo className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                {/* Realtime Date & Time Clock Display */}
+                <div className="flex items-center gap-1.5 text-xs font-mono-code font-bold text-purple-700 bg-purple-50 border border-purple-200/60 px-3.5 py-1.5 rounded-full shadow-sm">
+                  <Clock size={13} className="text-purple-600" />
+                  <span>{timeDateString}</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
       </div>
     </>

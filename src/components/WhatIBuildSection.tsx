@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { SERVICE_PILLARS } from '../data/cmsData';
 import { Layers, Globe, Bot, Workflow, CheckCircle2, ArrowRight, Sparkles, ChevronDown } from 'lucide-react';
 import {
   ReactLogo,
@@ -19,14 +18,24 @@ import {
   FastapiLogo,
   PythonLogo
 } from './common/BrandLogos';
+import { useCMS } from '../context/CMSContext';
 
 interface WhatIBuildSectionProps {
   onOpenIntake: () => void;
 }
 
 export const WhatIBuildSection: React.FC<WhatIBuildSectionProps> = ({ onOpenIntake }) => {
-  const [activePillar, setActivePillar] = useState(SERVICE_PILLARS[0].id);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(SERVICE_PILLARS[0].id);
+  const { cmsData, isElementVisible } = useCMS();
+  const allPillars = cmsData.servicePillars && cmsData.servicePillars.length > 0
+    ? cmsData.servicePillars
+    : [];
+
+  const servicePillars = allPillars.filter((p) => isElementVisible(`pillar_${p.id}`, true));
+
+  const [activePillar, setActivePillar] = useState(servicePillars[0]?.id || 'fullstack-mern');
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(servicePillars[0]?.id || 'fullstack-mern');
+
+  if (!isElementVisible('servicesSection', true) || servicePillars.length === 0) return null;
 
   const getPillarIcon = (id: string) => {
     switch (id) {
@@ -60,7 +69,7 @@ export const WhatIBuildSection: React.FC<WhatIBuildSectionProps> = ({ onOpenInta
     }
   };
 
-  const currentPillar = SERVICE_PILLARS.find(p => p.id === activePillar) || SERVICE_PILLARS[0];
+  const currentPillar = servicePillars.find(p => p.id === activePillar) || servicePillars[0];
 
   const toggleMobileExpand = (id: string) => {
     setMobileExpanded(mobileExpanded === id ? null : id);
@@ -95,8 +104,8 @@ export const WhatIBuildSection: React.FC<WhatIBuildSectionProps> = ({ onOpenInta
           
           {/* Left Column — Navigation Tabs */}
           <div className="lg:col-span-4 space-y-3">
-            {SERVICE_PILLARS.map((pillar) => {
-              const isActive = activePillar === pillar.id;
+            {servicePillars.map((pillar) => {
+              const isActive = (currentPillar?.id || activePillar) === pillar.id;
               return (
                 <button
                   key={pillar.id}
@@ -163,7 +172,7 @@ export const WhatIBuildSection: React.FC<WhatIBuildSectionProps> = ({ onOpenInta
                     Core Technical Features
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {currentPillar.features.map((feat, idx) => (
+                    {(currentPillar?.features || []).map((feat, idx) => (
                       <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl bg-zinc-50/90 border border-zinc-100">
                         <CheckCircle2 size={15} className="text-emerald-600 shrink-0 mt-0.5" />
                         <span className="text-xs text-zinc-700 leading-normal font-medium">{feat}</span>
@@ -178,7 +187,7 @@ export const WhatIBuildSection: React.FC<WhatIBuildSectionProps> = ({ onOpenInta
                     Official Production Tech Stack
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {currentPillar.techStack.map((tech, idx) => (
+                    {(currentPillar?.techStack || []).map((tech, idx) => (
                       <div
                         key={idx}
                         className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-50 border border-zinc-200 text-xs font-mono-code text-zinc-800 font-semibold shadow-2xs"
@@ -195,9 +204,9 @@ export const WhatIBuildSection: React.FC<WhatIBuildSectionProps> = ({ onOpenInta
                   <div className="space-y-1">
                     <span className="text-[10px] font-mono-code uppercase font-semibold text-zinc-400">Target Deliverables</span>
                     <div className="flex items-center gap-2 flex-wrap">
-                      {currentPillar.deliverables.map((del, i) => (
+                      {(currentPillar?.deliverables || []).map((del, i, arr) => (
                         <span key={i} className="text-xs text-zinc-700 font-medium">
-                          {del}{i < currentPillar.deliverables.length - 1 ? ' ·' : ''}
+                          {del}{i < arr.length - 1 ? ' ·' : ''}
                         </span>
                       ))}
                     </div>
@@ -220,7 +229,7 @@ export const WhatIBuildSection: React.FC<WhatIBuildSectionProps> = ({ onOpenInta
 
         {/* ─── MOBILE VIEW (below lg) ─── */}
         <div className="lg:hidden space-y-4">
-          {SERVICE_PILLARS.map((pillar) => {
+          {servicePillars.map((pillar) => {
             const isExpanded = mobileExpanded === pillar.id;
             return (
               <div
@@ -259,7 +268,7 @@ export const WhatIBuildSection: React.FC<WhatIBuildSectionProps> = ({ onOpenInta
                     <div className="space-y-2">
                       <h4 className="text-[11px] font-mono-code font-bold text-zinc-900 uppercase">Features</h4>
                       <div className="space-y-2">
-                        {pillar.features.map((feat, i) => (
+                        {(pillar.features || []).map((feat, i) => (
                           <div key={i} className="flex items-start gap-2 text-xs text-zinc-700">
                             <CheckCircle2 size={13} className="text-emerald-600 shrink-0 mt-0.5" />
                             <span>{feat}</span>
@@ -271,7 +280,7 @@ export const WhatIBuildSection: React.FC<WhatIBuildSectionProps> = ({ onOpenInta
                     <div className="space-y-2">
                       <h4 className="text-[11px] font-mono-code font-bold text-zinc-900 uppercase">Tech Stack</h4>
                       <div className="flex flex-wrap gap-1.5">
-                        {pillar.techStack.map((tech, i) => (
+                        {(pillar.techStack || []).map((tech, i) => (
                           <span key={i} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-100 border border-zinc-200 text-[11px] font-mono-code text-zinc-800">
                             {renderTechLogo(tech)}
                             <span>{tech}</span>

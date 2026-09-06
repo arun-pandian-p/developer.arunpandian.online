@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { PROJECTS, CLIENT_PROOF } from '../data/cmsData';
 import { Award, FileText, CheckCircle2, X, ExternalLink, Sparkles, Building, ArrowUpRight, Globe, Star } from 'lucide-react';
 import { NextjsLogo, ReactLogo, TypescriptLogo, TailwindLogo, VercelLogo } from './common/BrandLogos';
+import { useCMS } from '../context/CMSContext';
 
 export const CarpediemShowcase: React.FC = () => {
-  const carpediem = PROJECTS.find((p) => p.id === 'carpediem-tech') || PROJECTS[1];
+  const { cmsData, isElementVisible } = useCMS();
+  const proof = cmsData.clientProof;
   const [showLetterModal, setShowLetterModal] = useState(false);
+
+  if (!isElementVisible('proofSection', true)) return null;
+
+  const pdfUrl = proof.pdfDocumentUrl || '/assets/carpediem-proof.pdf';
+  const screenshotUrl = proof.screenshotUrl || '/assets/carpediem-hero-preview.webp';
+  const liveUrl = proof.liveUrl || 'https://carpediemtechinnovations.in/';
 
   return (
     <section id="projects" className="py-20 sm:py-28 bg-white border-y border-zinc-200 relative overflow-hidden">
@@ -22,35 +29,41 @@ export const CarpediemShowcase: React.FC = () => {
               Verified Client Project &amp; Live Deployment
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-space-grotesk tracking-tight text-zinc-900 leading-tight">
-              Carpediem Tech{' '}
+              {proof.companyName || 'Carpediem Tech'}{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-amber-600">
                 Innovations Platform
               </span>
             </h2>
-            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
-              Corporate web application engineered with agency visual design standards, fast Lighthouse performance, and official client appreciation recognition.
-            </p>
+            {isElementVisible('proofQuote', true) && (
+              <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
+                {proof.summary || 'Corporate web application engineered with agency visual design standards, fast Lighthouse performance, and official client appreciation recognition.'}
+              </p>
+            )}
           </div>
 
           <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap shrink-0">
-            <a
-              href="https://carpediemtechinnovations.in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-indigo-600/20 cursor-pointer"
-            >
-              <Globe size={16} />
-              <span>Visit Live Website</span>
-              <ArrowUpRight size={16} />
-            </a>
+            {isElementVisible('proofLiveLink', true) && (
+              <a
+                href={liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-indigo-600/20 cursor-pointer"
+              >
+                <Globe size={16} />
+                <span>Visit Live Website</span>
+                <ArrowUpRight size={16} />
+              </a>
+            )}
 
-            <button
-              onClick={() => setShowLetterModal(true)}
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
-            >
-              <FileText size={16} className="text-amber-400" />
-              <span>Inspect Document</span>
-            </button>
+            {isElementVisible('proofPdf', true) && (
+              <button
+                onClick={() => setShowLetterModal(true)}
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
+              >
+                <FileText size={16} className="text-amber-400" />
+                <span>Inspect Document</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -69,16 +82,16 @@ export const CarpediemShowcase: React.FC = () => {
                   <span className="w-3 h-3 rounded-full bg-emerald-400"></span>
                 </div>
                 <a
-                  href="https://carpediemtechinnovations.in/"
+                  href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 border border-zinc-200/80 text-[11px] font-mono-code text-zinc-700 flex items-center gap-1.5 transition-colors font-medium"
+                  className="px-3 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 border border-zinc-200/80 text-[11px] font-mono-code text-zinc-700 flex items-center gap-1.5 transition-colors font-medium truncate max-w-[200px]"
                 >
-                  <Globe size={12} className="text-indigo-600" />
-                  <span>https://carpediemtechinnovations.in/</span>
-                  <ExternalLink size={11} className="text-zinc-400" />
+                  <Globe size={12} className="text-indigo-600 shrink-0" />
+                  <span className="truncate">{liveUrl}</span>
+                  <ExternalLink size={11} className="text-zinc-400 shrink-0" />
                 </a>
-                <span className="text-[10px] font-mono-code text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded font-bold border border-indigo-200">
+                <span className="text-[10px] font-mono-code text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded font-bold border border-indigo-200 shrink-0">
                   Live Site
                 </span>
               </div>
@@ -86,22 +99,27 @@ export const CarpediemShowcase: React.FC = () => {
               {/* Hero Screenshot Preview Image */}
               <div className="relative rounded-2xl overflow-hidden border border-zinc-200 group shadow-md flex-1 min-h-[260px] bg-zinc-950">
                 <img
-                  src="/assets/carpediem-hero-preview.webp"
-                  alt="Carpediem Tech Innovations Hero Interface Capture - Full-Stack Web Development"
+                  src={screenshotUrl}
+                  alt="Carpediem Tech Innovations Hero Interface Capture"
                   loading="lazy"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/assets/carpediem-hero-preview.webp';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                 <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-white/95 backdrop-blur-md border border-zinc-200 flex items-center justify-between shadow-lg">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span className="text-xs font-mono-code font-bold text-zinc-900">carpediemtechinnovations.in Hero Screen Capture</span>
+                    <span className="text-xs font-mono-code font-bold text-zinc-900 truncate">
+                      {proof.companyName} Screen Capture
+                    </span>
                   </div>
                   <a
-                    href="https://carpediemtechinnovations.in/"
+                    href={liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[11px] font-mono-code text-indigo-700 font-bold hover:underline flex items-center gap-1"
+                    className="text-[11px] font-mono-code text-indigo-700 font-bold hover:underline flex items-center gap-1 shrink-0"
                   >
                     <span>Visit Site</span>
                     <ArrowUpRight size={12} />
@@ -115,82 +133,21 @@ export const CarpediemShowcase: React.FC = () => {
                   <Star size={15} className="text-amber-500 fill-amber-400" />
                   <span className="font-bold">Live Client Feedback:</span>
                 </div>
-                <span className="text-zinc-600 font-medium">"5/5 Star Rating · Exceptional Quality"</span>
+                <span className="text-zinc-600 font-medium">"{proof.ratingText || '5/5 Star Rating · Exceptional Quality'}"</span>
               </div>
 
             </div>
           </div>
 
-          {/* Right Column — Project Overview & Official Proof Card (Half Width) */}
-          <div className="lg:col-span-6 p-2 rounded-3xl bg-zinc-100/90 border border-zinc-200/90 shadow-sm flex flex-col justify-between">
-            <div className="p-6 sm:p-8 rounded-[calc(1.5rem-0.25rem)] bg-white border border-zinc-100 space-y-6 flex-1">
-              
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono-code font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">
-                    Corporate Web Platform
-                  </span>
-                  <span className="text-xs font-mono-code text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 font-semibold">
-                    ✓ Client Verified
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold font-space-grotesk text-zinc-900">
-                  {carpediem.tagline}
-                </h3>
-                <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed">
-                  {carpediem.description}
-                </p>
-              </div>
-
-              {/* Key Features */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {carpediem.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2 p-2.5 rounded-xl bg-zinc-50 border border-zinc-100">
-                    <CheckCircle2 size={14} className="text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="text-xs text-zinc-800 font-medium">{feat}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Appreciation Proof Card */}
-              <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200">
-                    <Award size={20} className="text-amber-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-space-grotesk font-bold text-zinc-900 text-sm">
-                      Official Client Proof
-                    </h4>
-                    <p className="text-[11px] text-zinc-500 font-mono-code">
-                      Carpediem Tech Innovations
-                    </p>
-                  </div>
-                </div>
-
-                <blockquote className="text-xs text-zinc-700 font-medium leading-relaxed italic p-3 rounded-xl bg-white border border-zinc-200/80">
-                  "{CLIENT_PROOF.quote}"
-                </blockquote>
-
-                <div className="flex items-center justify-between text-xs font-mono-code pt-1">
-                  <a
-                    href="https://carpediemtechinnovations.in/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-indigo-600 hover:underline font-bold flex items-center gap-1"
-                  >
-                    <span>carpediemtechinnovations.in</span>
-                    <ArrowUpRight size={12} />
-                  </a>
-                  <button
-                    onClick={() => setShowLetterModal(true)}
-                    className="px-3 py-1.5 rounded-lg bg-zinc-900 text-white font-mono-code text-[11px] font-bold cursor-pointer"
-                  >
-                    Inspect Document
-                  </button>
-                </div>
-              </div>
-
+          {/* Right Column — PDF Document Only */}
+          <div className="lg:col-span-6 p-2 rounded-3xl bg-zinc-100/90 border border-zinc-200/90 shadow-sm">
+            <div className="rounded-[calc(1.5rem-0.25rem)] overflow-hidden border border-zinc-200 bg-white" style={{ height: 'clamp(400px, 60vh, 700px)' }}>
+              <iframe
+                src={pdfUrl}
+                title={`${proof.companyName} - Official Client Appreciation Letter`}
+                className="w-full h-full"
+                style={{ border: 'none' }}
+              />
             </div>
           </div>
 
@@ -242,7 +199,7 @@ export const CarpediemShowcase: React.FC = () => {
                     Client Appreciation Letter
                   </h3>
                   <p className="text-xs font-mono-code text-zinc-500">
-                    Carpediem Tech Innovations (carpediemtechinnovations.in)
+                    {proof.companyName} ({liveUrl})
                   </p>
                 </div>
               </div>
@@ -254,33 +211,23 @@ export const CarpediemShowcase: React.FC = () => {
               </button>
             </div>
 
-            <div className="space-y-4">
-              <div className="p-4 rounded-2xl bg-zinc-50 border border-zinc-200 text-xs font-mono-code text-zinc-700 leading-relaxed space-y-2">
-                <p className="font-bold text-zinc-900">Official Commendation Summary:</p>
-                <p>{CLIENT_PROOF.summary}</p>
-              </div>
-
-              <div className="space-y-2">
-                <h4 className="text-xs font-mono-code font-bold text-zinc-900 uppercase">Key Project Deliverables</h4>
-                <div className="space-y-2">
-                  {CLIENT_PROOF.keyDeliverables.map((item, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-zinc-700 font-medium">
-                      <CheckCircle2 size={14} className="text-emerald-600 shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-50" style={{ height: '60vh' }}>
+              <iframe
+                src={pdfUrl}
+                title={`${proof.companyName} - Official Client Appreciation Letter`}
+                className="w-full h-full"
+                style={{ border: 'none' }}
+              />
             </div>
 
             <div className="pt-4 border-t border-zinc-200 flex items-center justify-between">
               <a
-                href="https://carpediemtechinnovations.in/"
+                href={liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-mono-code text-indigo-600 hover:underline font-bold flex items-center gap-1"
               >
-                <span>carpediemtechinnovations.in</span>
+                <span>{proof.companyName}</span>
                 <ArrowUpRight size={13} />
               </a>
               <button

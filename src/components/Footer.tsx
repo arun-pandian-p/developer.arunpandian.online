@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, LogIn, Lock } from 'lucide-react';
 import {
   WhatsappLogo,
   GithubLogo,
@@ -9,18 +9,24 @@ import {
   FreelancerLogo
 } from './common/BrandLogos';
 
+import { useCMS } from '../context/CMSContext';
+
 interface FooterProps {
   onOpenWhatsApp: () => void;
   onOpenIntake: () => void;
+  onOpenAdmin?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenIntake }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenIntake, onOpenAdmin }) => {
+  const { isElementVisible } = useCMS();
+
   return (
     <footer className="w-full bg-black border-t border-white/10 pt-12 sm:pt-20 pb-8 sm:pb-12 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto space-y-10 sm:space-y-16">
         
         {/* CTA Banner */}
-        <div className="p-1.5 sm:p-2 rounded-[1.5rem] sm:rounded-[2.5rem] bg-gradient-to-r from-amber-500/20 via-indigo-500/20 to-amber-500/20 ring-1 ring-white/10 shadow-2xl">
+        {isElementVisible('footerCta', true) && (
+          <div className="p-1.5 sm:p-2 rounded-[1.5rem] sm:rounded-[2.5rem] bg-gradient-to-r from-amber-500/20 via-indigo-500/20 to-amber-500/20 ring-1 ring-white/10 shadow-2xl">
           <div className="p-6 sm:p-12 rounded-[calc(1.5rem-0.375rem)] sm:rounded-[calc(2.5rem-0.5rem)] bg-zinc-950 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] space-y-6 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-8">
             
             <div className="space-y-2 max-w-xl">
@@ -58,6 +64,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenIntake }) 
             </div>
           </div>
         </div>
+        )}
 
         {/* Footer Nav */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 sm:gap-8 text-xs font-mono-code">
@@ -137,7 +144,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenIntake }) 
               </a>
 
               <a
-                href="https://github.com"
+                href="https://github.com/arun-pandian-p"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.6)]"
@@ -147,7 +154,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenIntake }) 
               </a>
 
               <a
-                href="https://linkedin.com"
+                href="https://linkedin.com/in/arunpandian-p"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-all duration-200 hover:scale-[1.08] hover:drop-shadow-[0_0_10px_rgba(10,102,194,0.6)]"
@@ -160,10 +167,23 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenIntake }) 
 
         </div>
 
-        {/* Bottom */}
+        {/* Bottom Bar with Login / CMS Button */}
         <div className="pt-6 sm:pt-8 border-t border-zinc-900 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[11px] font-mono-code text-zinc-500">
           <div>© {new Date().getFullYear()} Arun Pandian Digital Product Studio. All rights reserved.</div>
-          <div className="text-zinc-600">Built with React, Tailwind CSS v4, Lenis &amp; GSAP Motion</div>
+          
+          <div className="flex items-center gap-4">
+            {onOpenAdmin && (
+              <button
+                onClick={onOpenAdmin}
+                className="flex items-center gap-1.5 text-zinc-400 hover:text-amber-400 transition-colors cursor-pointer"
+                title="Owner Login & Visual CMS"
+              >
+                <Lock size={12} />
+                <span>Login</span>
+              </button>
+            )}
+            <span className="text-zinc-600">Built with React 19, Supabase Realtime &amp; Design OS</span>
+          </div>
         </div>
 
       </div>

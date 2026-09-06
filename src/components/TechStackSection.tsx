@@ -25,6 +25,35 @@ import {
   StripeLogo,
   PrismaLogo
 } from './common/BrandLogos';
+import { useCMS } from '../context/CMSContext';
+
+const getToolLogo = (name: string) => {
+  const n = name.toLowerCase();
+  if (n.includes('react')) return <ReactLogo className="w-9 h-9 text-[#00D8FF]" />;
+  if (n.includes('next')) return <NextjsLogo className="w-9 h-9 text-black" />;
+  if (n.includes('typescript')) return <TypescriptLogo className="w-9 h-9" />;
+  if (n.includes('javascript')) return <JavascriptLogo className="w-9 h-9 text-amber-500" />;
+  if (n.includes('tailwind')) return <TailwindLogo className="w-9 h-9 text-[#38BDF8]" />;
+  if (n.includes('node')) return <NodejsLogo className="w-9 h-9 text-[#68A063]" />;
+  if (n.includes('express')) return <ExpressLogo className="w-9 h-9 text-zinc-900" />;
+  if (n.includes('python')) return <PythonLogo className="w-9 h-9 text-amber-600" />;
+  if (n.includes('fastapi')) return <FastapiLogo className="w-9 h-9 text-teal-600" />;
+  if (n.includes('mongo')) return <MongodbLogo className="w-9 h-9 text-[#47A248]" />;
+  if (n.includes('postgres')) return <PostgresqlLogo className="w-9 h-9 text-[#336791]" />;
+  if (n.includes('supabase')) return <SupabaseLogo className="w-9 h-9 text-[#3ECF8E]" />;
+  if (n.includes('prisma')) return <PrismaLogo className="w-9 h-9 text-indigo-600" />;
+  if (n.includes('stripe')) return <StripeLogo className="w-9 h-9 text-[#635BFF]" />;
+  if (n.includes('openai') || n.includes('gpt')) return <OpenAILogo className="w-9 h-9 text-emerald-600" />;
+  if (n.includes('claude') || n.includes('anthropic')) return <ClaudeLogo className="w-9 h-9 text-amber-600" />;
+  if (n.includes('n8n')) return <N8nLogo className="w-9 h-9 text-rose-500" />;
+  if (n.includes('docker')) return <DockerLogo className="w-9 h-9 text-[#2496ED]" />;
+  if (n.includes('github actions')) return <GithubActionsLogo className="w-9 h-9 text-blue-600" />;
+  if (n.includes('github')) return <GithubLogo className="w-9 h-9 text-black" />;
+  if (n.includes('vercel')) return <VercelLogo className="w-9 h-9 text-black" />;
+  if (n.includes('aws')) return <AwsLogo className="w-9 h-9 text-amber-600" />;
+  if (n.includes('figma')) return <FigmaLogo className="w-9 h-9 text-purple-600" />;
+  return <Cpu className="w-9 h-9 text-amber-600" />;
+};
 
 interface TechTool {
   name: string;
@@ -249,11 +278,20 @@ const TECH_TOOLS: TechTool[] = [
 const CATEGORIES = ['All', 'Frontend', 'Backend', 'AI & Automation', 'DevOps & Tools'] as const;
 
 export const TechStackSection: React.FC = () => {
+  const { cmsData, isElementVisible } = useCMS();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
+  const rawTools = cmsData.techTools && cmsData.techTools.length > 0
+    ? cmsData.techTools
+    : TECH_TOOLS;
+
+  const toolsList = rawTools.filter((t) => isElementVisible(`tool_${t.name}`, true));
+
   const filteredTools = selectedCategory === 'All' 
-    ? TECH_TOOLS 
-    : TECH_TOOLS.filter(t => t.category === selectedCategory);
+    ? toolsList 
+    : toolsList.filter(t => t.category === selectedCategory);
+
+  if (!isElementVisible('techStackSection', true) || toolsList.length === 0) return null;
 
   return (
     <section id="tech-stack" className="py-20 sm:py-28 bg-white border-y border-zinc-200 relative overflow-hidden">
@@ -319,9 +357,9 @@ export const TechStackSection: React.FC = () => {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-100 group-hover:scale-110 transition-transform flex items-center justify-center">
-                        {tool.icon}
+                        {(tool as any).icon || getToolLogo(tool.name)}
                       </div>
-                      <span className={`text-[10px] font-mono-code font-semibold px-2.5 py-0.5 rounded-full ${tool.badgeBg} ${tool.badgeText} border border-zinc-200/60`}>
+                      <span className={`text-[10px] font-mono-code font-semibold px-2.5 py-0.5 rounded-full ${tool.badgeBg || 'bg-amber-50'} ${tool.badgeText || 'text-amber-800'} border border-zinc-200/60`}>
                         {tool.badge}
                       </span>
                     </div>

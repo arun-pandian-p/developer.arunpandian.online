@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { PROJECTS } from '../data/cmsData';
 import { Layers, ShieldCheck, ArrowUpRight, CheckCircle2, Globe, Sparkles, Building2, Users, CreditCard, ExternalLink, Star } from 'lucide-react';
 import {
   NextjsLogo,
@@ -12,10 +11,19 @@ import {
   TailwindLogo,
   VercelLogo
 } from './common/BrandLogos';
+import { useCMS } from '../context/CMSContext';
 
 export const ZappyShowcase: React.FC = () => {
-  const zappy = PROJECTS.find((p) => p.id === 'zappy-saas') || PROJECTS[0];
+  const { cmsData } = useCMS();
+  const zappySlide = (cmsData.showcaseSlides || []).find((s) => s.id === 'zappy-saas-slide' || s.type === 'zappy-saas');
+
   const [activeWorkspace, setActiveWorkspace] = useState<'acme' | 'stark' | 'apex'>('acme');
+
+  const title = zappySlide?.title || 'Zappy Multi-Tenant SaaS Architecture';
+  const tagline = zappySlide?.tagline || 'Multi-Tenant Architecture with Tenant Isolation & Metered Subscriptions';
+  const description = zappySlide?.description || 'Live multi-workspace SaaS application built for organizations requiring workspace isolation, custom subscription tiers, and domain routing.';
+  const previewImage = zappySlide?.mediaUrl || '/assets/zappy-hero-preview.webp';
+  const liveUrl = zappySlide?.liveUrl || 'https://zappy.ind.in';
 
   const workspaces = {
     acme: { name: 'Acme Corp Studio', plan: 'Enterprise Pro', members: 24, revenue: '$14,800/mo', color: 'border-amber-500 text-amber-700 bg-amber-50' },
@@ -38,24 +46,24 @@ export const ZappyShowcase: React.FC = () => {
               Featured Flagship SaaS Project
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-space-grotesk tracking-tight text-zinc-900 leading-tight">
-              Zappy Multi-Tenant{' '}
+              {title}{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-indigo-600">
                 SaaS Architecture
               </span>
             </h2>
             <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
-              Live multi-workspace SaaS application built for organizations requiring workspace isolation, custom subscription tiers, and domain routing.
+              {description}
             </p>
           </div>
 
           <a
-            href="https://zappy.ind.in"
+            href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 cursor-pointer shrink-0"
           >
             <Globe size={16} />
-            <span>Launch Live App (zappy.ind.in)</span>
+            <span>Launch Live App ({liveUrl.replace('https://', '')})</span>
             <ArrowUpRight size={16} />
           </a>
         </div>
@@ -75,16 +83,16 @@ export const ZappyShowcase: React.FC = () => {
                   <span className="w-3 h-3 rounded-full bg-emerald-400"></span>
                 </div>
                 <a
-                  href="https://zappy.ind.in"
+                  href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 border border-zinc-200/80 text-[11px] font-mono-code text-zinc-700 flex items-center gap-1.5 transition-colors font-medium"
+                  className="px-3 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 border border-zinc-200/80 text-[11px] font-mono-code text-zinc-700 flex items-center gap-1.5 transition-colors font-medium truncate max-w-[200px]"
                 >
-                  <Globe size={12} className="text-emerald-600" />
-                  <span>https://zappy.ind.in</span>
-                  <ExternalLink size={11} className="text-zinc-400" />
+                  <Globe size={12} className="text-emerald-600 shrink-0" />
+                  <span className="truncate">{liveUrl}</span>
+                  <ExternalLink size={11} className="text-zinc-400 shrink-0" />
                 </a>
-                <span className="text-[10px] font-mono-code text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200">
+                <span className="text-[10px] font-mono-code text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-bold border border-emerald-200 shrink-0">
                   Live SaaS
                 </span>
               </div>
@@ -92,22 +100,27 @@ export const ZappyShowcase: React.FC = () => {
               {/* Hero Screenshot Preview Image */}
               <div className="relative rounded-2xl overflow-hidden border border-zinc-200 group shadow-md flex-1 min-h-[260px] bg-zinc-950">
                 <img
-                  src="/assets/zappy-hero-preview.webp"
-                  alt="Zappy.ind.in SaaS Hero Interface Capture - Multi-Tenant SaaS Architecture"
+                  src={previewImage}
+                  alt={`${title} Interface Capture`}
                   loading="lazy"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = '/assets/zappy-hero-preview.webp';
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                 <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-white/95 backdrop-blur-md border border-zinc-200 flex items-center justify-between shadow-lg">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span className="text-xs font-mono-code font-bold text-zinc-900">zappy.ind.in Hero Screen Capture</span>
+                    <span className="text-xs font-mono-code font-bold text-zinc-900 truncate">
+                      {liveUrl.replace('https://', '')} Screen Capture
+                    </span>
                   </div>
                   <a
-                    href="https://zappy.ind.in"
+                    href={liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[11px] font-mono-code text-amber-700 font-bold hover:underline flex items-center gap-1"
+                    className="text-[11px] font-mono-code text-amber-700 font-bold hover:underline flex items-center gap-1 shrink-0"
                   >
                     <span>Visit Site</span>
                     <ArrowUpRight size={12} />
@@ -147,16 +160,21 @@ export const ZappyShowcase: React.FC = () => {
                   </a>
                 </div>
                 <h3 className="text-2xl font-bold font-space-grotesk text-zinc-900">
-                  {zappy.tagline}
+                  {tagline}
                 </h3>
                 <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed">
-                  {zappy.description}
+                  {description}
                 </p>
               </div>
 
               {/* Key Features List */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {zappy.features.map((feat, idx) => (
+                {(zappySlide?.features || [
+                  'Subdomain Multi-Tenant Isolation',
+                  'Enterprise Role-Based Access Control',
+                  'Automated Stripe Recurring Billing',
+                  'PostgreSQL Row-Level Security'
+                ]).map((feat: string, idx: number) => (
                   <div key={idx} className="flex items-start gap-2 p-2.5 rounded-xl bg-zinc-50 border border-zinc-100">
                     <CheckCircle2 size={14} className="text-emerald-600 shrink-0 mt-0.5" />
                     <span className="text-xs text-zinc-800 font-medium">{feat}</span>
