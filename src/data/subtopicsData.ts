@@ -416,6 +416,54 @@ export const getSubTopicDetails = (subId: string, cmsData: SiteCMSData): SubTopi
         pdfUrl: proof.pdfDocumentUrl || '/assets/carpediem-proof.pdf',
       };
 
+    case 'project-n8n':
+      return {
+        id: 'project-n8n',
+        category: 'projects',
+        categoryTitle: 'Enterprise Automation',
+        title: 'n8n Workflow Automation & Integration Pipeline',
+        subtitle: 'Autonomous Business Pipelines & Multi-System Webhook Sync',
+        badge: 'AUTOMATION PIPELINE',
+        description:
+          'End-to-end automated business workflows connecting Stripe payments, OpenAI content analysis, CRM updates, and real-time Slack notifications.',
+        features: [
+          'Visual node architecture with error retries and webhook routing',
+          'Automated Stripe invoice handling and customer account onboarding',
+          'AI-powered document triage and contextual LLM response routing',
+          'Self-hosted enterprise n8n deployment with Docker security',
+        ],
+        techStack: ['n8n', 'Node.js', 'FastAPI', 'Stripe API', 'OpenAI', 'Docker'],
+        metrics: [
+          { label: 'Automated Runs', value: '10k+ / Month' },
+          { label: 'Time Saved', value: '95% Efficiency' },
+        ],
+        liveUrl: 'https://developer.arunpandian.online',
+      };
+
+    case 'project-cloud':
+      return {
+        id: 'project-cloud',
+        category: 'projects',
+        categoryTitle: 'Cloud Microservices Engine',
+        title: 'Cloud API & Microservices Infrastructure',
+        subtitle: 'High-Concurrency PostgreSQL & Docker Container Clusters',
+        badge: 'CLOUD ARCHITECTURE',
+        description:
+          'Production-grade cloud backend infrastructure engineered for high throughput, sub-second latency, automated database backups, and real-time telemetry.',
+        features: [
+          'High-throughput RESTful and GraphQL endpoints with connection pooling',
+          'PostgreSQL database tuning with Redis caching and query optimization',
+          'Docker container clusters with health monitoring and automated failover',
+          'CI/CD automated deployment pipelines with zero-downtime releases',
+        ],
+        techStack: ['PostgreSQL', 'FastAPI', 'Docker', 'Redis', 'Kubernetes', 'Vercel'],
+        metrics: [
+          { label: 'Throughput', value: '10k+ QPS' },
+          { label: 'Query Latency', value: '< 20ms' },
+        ],
+        liveUrl: 'https://developer.arunpandian.online',
+      };
+
     case 'project-proof':
       return {
         id: 'project-proof',

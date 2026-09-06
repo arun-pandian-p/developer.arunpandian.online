@@ -103,9 +103,11 @@ const TOPIC_CONFIG: Record<
     heroSubtitle:
       'Explore live applications, production SaaS platforms, AI agent demos, and verified client letters of recommendation.',
     subtopics: [
-      { id: 'project-ai-demo', label: 'AI Agent Demo Assistant', desc: 'Interactive LLM chat assistant with document query capabilities.' },
       { id: 'project-zappy', label: 'Zappy SaaS Platform', desc: 'Flagship multi-tenant SaaS application with real-time canvas.' },
+      { id: 'project-ai-demo', label: 'AI Agent Demo Assistant', desc: 'Interactive LLM chat assistant with document query capabilities.' },
+      { id: 'project-n8n', label: 'n8n Automation Pipeline', desc: 'Enterprise webhook orchestration and AI business pipelines.' },
       { id: 'project-carpediem', label: 'Carpediem Tech Platform', desc: 'Verified client project with agency grade design and 100% score.' },
+      { id: 'project-cloud', label: 'Cloud API & Microservices', desc: 'High-concurrency PostgreSQL, Docker CI/CD and API telemetry.' },
       { id: 'project-proof', label: 'Client Proof (PDF Letter)', desc: 'Official signed and stamped corporate recommendation document.' },
     ],
   },
@@ -124,6 +126,77 @@ const TOPIC_CONFIG: Record<
     ],
   },
 };
+
+const ALL_PROJECT_CARDS = [
+  {
+    id: 'project-zappy',
+    title: 'Zappy Multi-Tenant SaaS Platform',
+    category: 'Multi-Tenant SaaS',
+    tagline: 'Real-Time Restaurant Canvas & Stripe Billing',
+    description: 'Flagship multi-tenant restaurant operating platform with workspace isolation, custom subscription tiers, and domain routing.',
+    imageUrl: '/assets/zappy-hero-preview.png',
+    status: 'Live Production',
+    tags: ['Next.js 16', 'React 19', 'PostgreSQL', 'Stripe', 'Prisma'],
+    liveUrl: 'https://zappy.ind.in',
+  },
+  {
+    id: 'project-ai-demo',
+    title: 'Autonomous AI Agent & Document RAG',
+    category: 'Autonomous AI',
+    tagline: 'Vector Retrieval, Tool Invocation & LLM Reasoning',
+    description: 'Live interactive AI Agent system capable of PDF document ingestion, vector embeddings search, and autonomous multi-turn reasoning.',
+    imageUrl: '/assets/ai-agent-preview.jpg',
+    status: 'Interactive Demo',
+    tags: ['GPT-4o', 'Claude 3.7', 'LangChain', 'FastAPI', 'Vector DB'],
+    liveUrl: 'https://developer.arunpandian.online',
+  },
+  {
+    id: 'project-n8n',
+    title: 'n8n Enterprise Automation Pipeline',
+    category: 'Workflow Automation',
+    tagline: 'Multi-System Webhook Triggers & Automated Operations',
+    description: 'End-to-end automated business workflows connecting Stripe payments, OpenAI content analysis, CRM updates, and real-time Slack notifications.',
+    imageUrl: '/assets/n8n-workflow-preview.jpg',
+    status: 'Automated 24/7',
+    tags: ['n8n', 'Node.js', 'FastAPI', 'Stripe API', 'Docker'],
+    liveUrl: 'https://developer.arunpandian.online',
+  },
+  {
+    id: 'project-carpediem',
+    title: 'Carpediem Tech Corporate Platform',
+    category: 'Enterprise Web',
+    tagline: 'Agency-Grade Visual Design & Verified Client MSME',
+    description: 'Corporate platform engineered with agency-standard visual design, perfect Lighthouse performance metrics, and verified client letter.',
+    imageUrl: '/assets/carpediem-hero-preview.png',
+    status: 'Client Deployed',
+    tags: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
+    liveUrl: 'https://carpediemtechinnovations.in/',
+    pdfUrl: '/assets/carpediem-proof.pdf',
+  },
+  {
+    id: 'project-cloud',
+    title: 'Cloud API & Microservices Infrastructure',
+    category: 'Cloud Architecture',
+    tagline: 'High-Concurrency PostgreSQL & Docker Clusters',
+    description: 'Production-grade backend engineering with Docker container orchestration, Redis caching, connection pooling, and sub-20ms latency.',
+    imageUrl: '/assets/cloud-api-preview.jpg',
+    status: 'High Concurrency',
+    tags: ['PostgreSQL', 'FastAPI', 'Docker', 'Redis', 'Kubernetes'],
+    liveUrl: 'https://developer.arunpandian.online',
+  },
+  {
+    id: 'project-proof',
+    title: 'Official Client Proof & MSME Letter',
+    category: 'Client Verification',
+    tagline: 'Signed & Stamped Corporate Recommendation Document',
+    description: 'Verified executive recommendation documentation celebrating on-time delivery, exceptional visual aesthetics, and resilient architecture.',
+    imageUrl: '/assets/client-proof-preview.jpg',
+    status: '5/5 Stars Verified',
+    tags: ['Official MSME', 'PDF Letter', 'Client Certified', '5/5 Rating'],
+    pdfUrl: '/assets/carpediem-proof.pdf',
+    liveUrl: 'https://carpediemtechinnovations.in/',
+  },
+];
 
 export interface TopicDetailPageProps {
   defaultTopic?: string;
@@ -351,8 +424,140 @@ export const TopicDetailPage: React.FC<TopicDetailPageProps> = ({ defaultTopic }
         </div>
       </section>
 
+      {/* ── 2.5 ALL PROJECTS GRID (PROJECTS HUB OVERVIEW) ── */}
+      {currentTopicKey === 'projects' && (
+        <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#0c0c0e] border-b border-zinc-800 relative z-10">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono-code font-bold uppercase tracking-wider">
+                  <Sparkles size={13} className="text-amber-400 animate-pulse" />
+                  All Production Deliverables &amp; Live Systems
+                </div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black font-space-grotesk text-white tracking-tight">
+                  Featured Client &amp; SaaS Project Portfolio
+                </h2>
+                <p className="text-zinc-400 text-xs sm:text-sm max-w-2xl font-light">
+                  Click any project card to inspect technical specifications, review architecture metrics, or launch live production demos.
+                </p>
+              </div>
+              <span className="text-xs font-mono-code text-amber-400 font-bold shrink-0 bg-amber-500/10 px-3.5 py-1.5 rounded-full border border-amber-500/20">
+                6 Verified Engineering Deliverables
+              </span>
+            </div>
+
+            {/* 6 Project Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+              {ALL_PROJECT_CARDS.map((proj) => {
+                const isCurrent = activeSubId === proj.id;
+                return (
+                  <div
+                    key={proj.id}
+                    onClick={() => {
+                      setActiveSubId(proj.id);
+                      navigate(`/topic/projects/${proj.id}`);
+                      const el = document.getElementById('project-detail-section');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`group relative rounded-3xl bg-zinc-900/90 border transition-all duration-300 overflow-hidden flex flex-col justify-between cursor-pointer hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-amber-500/15 ${
+                      isCurrent
+                        ? 'border-amber-400 ring-2 ring-amber-400/60 shadow-xl shadow-amber-500/20'
+                        : 'border-zinc-800/90 hover:border-zinc-700'
+                    }`}
+                  >
+                    {/* Picture Header with Image and Overlays */}
+                    <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">
+                      <img
+                        src={proj.imageUrl}
+                        alt={proj.title}
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 will-change-transform"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = '/assets/arun-banner-brand.png';
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
+
+                      {/* Top Badges */}
+                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
+                        <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/10 text-[10px] font-mono-code font-bold uppercase tracking-wider text-amber-300">
+                          {proj.category}
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-500/40 text-[10px] font-mono-code font-bold text-emerald-300 flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                          {proj.status}
+                        </span>
+                      </div>
+
+                      {/* Active Selection Indicator */}
+                      {isCurrent && (
+                        <div className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full bg-amber-400 text-zinc-950 text-[10px] font-mono-code font-black uppercase tracking-wider">
+                          Active Selection
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
+                      <div className="space-y-2">
+                        <h3 className="text-base sm:text-lg font-bold font-space-grotesk text-white group-hover:text-amber-300 transition-colors line-clamp-1">
+                          {proj.title}
+                        </h3>
+                        <p className="text-xs text-amber-400/90 font-mono-code font-semibold line-clamp-1">
+                          {proj.tagline}
+                        </p>
+                        <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">
+                          {proj.description}
+                        </p>
+                      </div>
+
+                      {/* Tech Stack Chips */}
+                      <div className="space-y-3 pt-2">
+                        <div className="flex flex-wrap gap-1.5">
+                          {proj.tags.slice(0, 4).map((tag, tIdx) => (
+                            <span
+                              key={tIdx}
+                              className="px-2 py-0.5 rounded-md bg-zinc-800/80 border border-zinc-700/60 text-[10px] font-mono-code text-zinc-300"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Interactive Route Link Buttons */}
+                        <div className="pt-2 flex items-center justify-between gap-2 border-t border-zinc-800">
+                          <button
+                            type="button"
+                            className="text-xs font-mono-code font-bold text-amber-400 group-hover:text-amber-300 flex items-center gap-1"
+                          >
+                            <span>Inspect Specs</span>
+                            <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                          </button>
+
+                          {proj.liveUrl && (
+                            <a
+                              href={proj.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-mono-code font-semibold flex items-center gap-1 transition-colors"
+                            >
+                              <span>Live App</span>
+                              <ExternalLink size={11} />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* 3. Middle Content Section (Clean Crisp White Background with Dark Slate Typography) */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200 text-slate-900 relative overflow-hidden">
+      <section id="project-detail-section" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200 text-slate-900 relative overflow-hidden">
         {/* Background White Grid Pattern */}
         <div className="absolute inset-0 bg-white-grid opacity-60 pointer-events-none" />
 
