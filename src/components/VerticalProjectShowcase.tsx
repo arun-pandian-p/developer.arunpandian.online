@@ -131,17 +131,6 @@ export const VerticalProjectShowcase: React.FC<VerticalProjectShowcaseProps> = (
                 'Engineering high-performance web platforms, autonomous LLM agents, and automated enterprise pipelines that scale.'}
             </p>
 
-            {/* Feature / Metric Highlight Pills */}
-            <div className="grid grid-cols-2 gap-3 pt-1">
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-zinc-900/90 border border-zinc-800 shadow-sm space-y-0.5">
-                <div className="text-xl font-black text-[#F29F67] font-mono-code">20+ Projects</div>
-                <div className="text-[10px] sm:text-[11px] text-zinc-400 font-bold uppercase">Shipped Production</div>
-              </div>
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-zinc-900/90 border border-zinc-800 shadow-sm space-y-0.5">
-                <div className="text-xl font-black text-emerald-400 font-mono-code">&lt; 600ms</div>
-                <div className="text-[10px] sm:text-[11px] text-zinc-400 font-bold uppercase">Average Latency</div>
-              </div>
-            </div>
 
             {/* Hero Action Buttons */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
