@@ -184,8 +184,8 @@ export const AIAgentDemo: React.FC = () => {
                         {step.detail}
                       </p>
                       {step.codeSnippet && isVisible && (
-                        <div className="mt-2 p-2 rounded bg-black/60 border border-zinc-800 text-[10px] text-emerald-300">
-                          <code>{step.codeSnippet}</code>
+                        <div className="mt-2 p-2 rounded bg-black/60 border border-zinc-800 text-[10px] text-emerald-300 overflow-x-auto scrollbar-none">
+                          <code className="whitespace-pre sm:whitespace-normal break-all font-mono-code">{step.codeSnippet}</code>
                         </div>
                       )}
                     </div>

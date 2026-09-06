@@ -41,13 +41,13 @@ export const CarpediemShowcase: React.FC = () => {
             )}
           </div>
 
-          <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
             {isElementVisible('proofLiveLink', true) && (
               <a
                 href={liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-indigo-600/20 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-indigo-600/20 cursor-pointer min-h-[48px]"
               >
                 <Globe size={16} />
                 <span>Visit Live Website</span>
@@ -58,7 +58,7 @@ export const CarpediemShowcase: React.FC = () => {
             {isElementVisible('proofPdf', true) && (
               <button
                 onClick={() => setShowLetterModal(true)}
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer min-h-[48px]"
               >
                 <FileText size={16} className="text-amber-400" />
                 <span>Inspect Document</span>

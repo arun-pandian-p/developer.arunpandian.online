@@ -483,20 +483,28 @@ export const ThemeStudio: React.FC<ThemeStudioProps> = ({ isOpen, onClose }) => 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         
         {/* Top Header Bar */}
-        <header className="h-16 px-6 bg-white border-b border-slate-200/80 flex items-center justify-between shrink-0 z-10 shadow-2xs">
-          <div className="flex items-center gap-2.5">
-            <div className="px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-2 shadow-2xs">
-              <div className="w-5 h-5 rounded-full bg-orange-100 text-[#E8824A] flex items-center justify-center text-[10px] font-black">
+        <header className="h-16 px-4 sm:px-6 bg-white border-b border-slate-200/80 flex items-center justify-between shrink-0 z-10 shadow-2xs">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            <button
+              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+              className="md:hidden p-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer"
+              title="Toggle Menu"
+            >
+              <Menu size={18} />
+            </button>
+
+            <div className="px-3 sm:px-4 py-1.5 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-1.5 sm:gap-2 shadow-2xs">
+              <div className="w-4 sm:w-5 h-4 sm:h-5 rounded-full bg-orange-100 text-[#E8824A] flex items-center justify-center text-[9px] sm:text-[10px] font-black shrink-0">
                 ✦
               </div>
-              <span className="text-xs font-bold text-slate-500">Control Room</span>
-              <span className="text-slate-300">/</span>
-              <span className="text-xs font-black text-slate-900 capitalize">
+              <span className="text-[11px] sm:text-xs font-bold text-slate-500 hidden xs:inline">Control Room</span>
+              <span className="text-slate-300 hidden xs:inline">/</span>
+              <span className="text-[11px] sm:text-xs font-black text-slate-900 capitalize truncate max-w-[120px] sm:max-w-none">
                 {activeSection.replace('web-', '').replace('srv-', '').replace('proj-', '').replace('cnt-', '').replace('fl-', '').replace('set-', '').replace('-', ' ')}
               </span>
             </div>
 
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/60 text-[10px] font-bold shadow-2xs">
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/60 text-[10px] font-bold shadow-2xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               Supabase Realtime
             </span>

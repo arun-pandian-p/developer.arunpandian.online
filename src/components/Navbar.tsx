@@ -113,24 +113,34 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, onOpenIntake, onOpenAdmin
 
   const close = () => setMenuOpen(false);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && menuOpen) {
+        close();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [menuOpen]);
+
   return (
     <>
-      {/* ─── Clean Floating Pill Navbar (Only Avatar & Hamburger) ─── */}
-      <header className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-[60] w-[94%] max-w-7xl">
-        <div className={`p-1.5 rounded-[2rem] ring-1 transition-all duration-500 ${
+      {/* ─── Responsive Floating Pill Navbar ─── */}
+      <header className="fixed top-2.5 sm:top-4 md:top-5 left-1/2 -translate-x-1/2 z-[60] w-[95%] sm:w-[92%] max-w-[1440px]">
+        <div className={`p-1 sm:p-1.5 rounded-[1.75rem] sm:rounded-[2.25rem] ring-1 transition-all duration-500 ${
           theme === 'dark'
             ? `bg-white/5 ring-white/10 backdrop-blur-2xl ${scrolled ? 'shadow-[0_16px_40px_rgba(0,0,0,0.9)]' : 'shadow-[0_8px_20px_rgba(0,0,0,0.5)]'}`
             : 'bg-black/5 ring-black/10 shadow-xl backdrop-blur-xl'
         }`}>
-          <div className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-[calc(2rem-0.375rem)] flex items-center justify-between transition-colors ${
+          <div className={`px-3 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-[calc(1.75rem-0.25rem)] sm:rounded-[calc(2.25rem-0.375rem)] flex items-center justify-between transition-colors ${
             theme === 'dark'
-              ? 'bg-zinc-950/90 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]'
+              ? 'bg-zinc-950/95 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]'
               : 'bg-[#E6E1DA] text-zinc-900 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]'
           }`}>
 
-            {/* Brand Logo & Avatar (Using hero rounded image) */}
-            <a href="#" onClick={close} className="flex items-center gap-3 group shrink-0" aria-label="Home">
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px] transition-transform duration-500 group-hover:scale-105 shrink-0 overflow-hidden">
+            {/* Brand Logo & Avatar */}
+            <a href="#" onClick={close} className="flex items-center gap-2.5 sm:gap-3 group shrink-0 min-h-[44px]" aria-label="Home">
+              <div className="w-8 h-8 sm:w-9 md:w-10 sm:h-9 md:h-10 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[2px] transition-transform duration-500 group-hover:scale-105 shrink-0 overflow-hidden">
                 <img
                   src="/assets/arun-hero-avatar.png"
                   alt="Arun Pandian"
@@ -140,22 +150,23 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, onOpenIntake, onOpenAdmin
                   }}
                 />
               </div>
-              <div className="shrink-0">
-                <div className="font-bold text-xs sm:text-sm tracking-tight flex items-center gap-1.5 font-syne whitespace-nowrap">
+              <div className="shrink-0 flex flex-col justify-center">
+                <div className="font-bold text-xs sm:text-sm md:text-base tracking-tight flex items-center gap-1.5 font-syne whitespace-nowrap">
                   ARUN PANDIAN
                   <span className="w-1.5 h-1.5 rounded-full bg-[#fda228] animate-pulse" />
                 </div>
-                <div className="text-[9px] text-zinc-400 font-mono-code uppercase tracking-widest whitespace-nowrap hidden xs:block">
+                <div className="text-[8px] sm:text-[9px] text-zinc-400 font-mono-code uppercase tracking-widest whitespace-nowrap hidden sm:block">
                   SAAS · AI · AUTOMATION
                 </div>
               </div>
             </a>
 
-            {/* Clean Hamburger Menu Button on Right */}
+            {/* 44px Touch Area Hamburger Menu Button */}
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="w-10 h-10 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-white/15 text-white flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95"
+              className="w-11 h-11 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-white/15 text-white flex items-center justify-center transition-all cursor-pointer shadow-md hover:scale-105 active:scale-95 shrink-0"
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              title={menuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
             >
               {menuOpen ? (
                 <X size={18} />
@@ -174,7 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, onOpenIntake, onOpenAdmin
 
       {/* ─── Mega Menu Backdrop ─── */}
       <div
-        className="fixed inset-0 z-[65] bg-black/60 backdrop-blur-md transition-opacity duration-300"
+        className="fixed inset-0 z-[65] bg-black/65 backdrop-blur-md transition-opacity duration-300"
         style={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? 'auto' : 'none' }}
         onClick={close}
         aria-hidden="true"
@@ -182,16 +193,16 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, onOpenIntake, onOpenAdmin
 
       {/* ─── Mega Menu Panel ─── */}
       <div
-        className="fixed inset-x-0 top-0 z-[70] transition-transform duration-500 ease-in-out p-3 sm:p-5"
+        className="fixed inset-x-0 top-0 z-[70] transition-transform duration-500 ease-in-out p-2 sm:p-4 md:p-5 max-h-screen overflow-y-auto"
         style={{ transform: menuOpen ? 'translateY(0)' : 'translateY(-115%)' }}
         role="dialog"
         aria-modal="true"
       >
-        <div className="max-w-6xl mx-auto rounded-[2rem] bg-[#F9F8F3] shadow-[0_32px_100px_rgba(0,0,0,0.5)] overflow-hidden border border-zinc-200/80 text-zinc-900">
+        <div className="max-w-6xl mx-auto rounded-[1.5rem] sm:rounded-[2rem] bg-[#F9F8F3] shadow-[0_32px_100px_rgba(0,0,0,0.5)] overflow-hidden border border-zinc-200/80 text-zinc-900 max-h-[92vh] flex flex-col">
 
-          {/* Top Bar: Clean Brand in Center & Close Button (No Globe Icon) */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-200/70">
-            <div className="w-9 h-9" /> {/* Spacer to balance center alignment */}
+          {/* Top Bar: Clean Brand in Center & Close Button */}
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-zinc-200/70 shrink-0">
+            <div className="w-8 sm:w-9 h-8 sm:h-9" /> {/* Spacer to balance center alignment */}
 
             <a href="#" onClick={close} className="flex items-center gap-2.5">
               <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#fda228] to-[#6366f1] p-[1.5px] overflow-hidden">
@@ -204,14 +215,14 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, onOpenIntake, onOpenAdmin
                   }}
                 />
               </div>
-              <span className="font-syne font-bold text-base sm:text-lg text-zinc-900 tracking-tight">
+              <span className="font-syne font-bold text-sm sm:text-base md:text-lg text-zinc-900 tracking-tight">
                 Arun Pandian Studio
               </span>
             </a>
 
             <button
               onClick={close}
-              className="w-9 h-9 rounded-full bg-zinc-950 flex items-center justify-center text-white hover:bg-zinc-800 transition-colors cursor-pointer shadow-sm"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-zinc-950 flex items-center justify-center text-white hover:bg-zinc-800 transition-colors cursor-pointer shadow-sm"
               aria-label="Close"
             >
               <X size={16} />
@@ -219,7 +230,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, onOpenIntake, onOpenAdmin
           </div>
 
           {/* Nav Grid */}
-          <div className="p-6 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+          <div className="p-4 sm:p-6 md:p-10 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-stretch overflow-y-auto">
             
             {/* 4 Navigation Columns (7 cols on desktop) */}
             <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-6">

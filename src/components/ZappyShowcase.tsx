@@ -60,11 +60,11 @@ export const ZappyShowcase: React.FC = () => {
             href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 cursor-pointer shrink-0"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-mono-code font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 cursor-pointer shrink-0 min-h-[48px]"
           >
             <Globe size={16} />
-            <span>Launch Live App ({liveUrl.replace('https://', '')})</span>
-            <ArrowUpRight size={16} />
+            <span className="truncate">Launch Live App ({liveUrl.replace('https://', '')})</span>
+            <ArrowUpRight size={16} className="shrink-0" />
           </a>
         </div>
 

@@ -93,10 +93,10 @@ export const FreelanceChannelsSection: React.FC = () => {
                     href={platform.profileUrl || platform.url || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 font-bold text-zinc-900 hover:text-amber-600 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-bold transition-all shadow-xs min-h-[40px]"
                   >
                     <span>Hire On {platform.name}</span>
-                    <ExternalLink size={13} />
+                    <ExternalLink size={13} className="text-amber-400" />
                   </a>
                 </div>
 
