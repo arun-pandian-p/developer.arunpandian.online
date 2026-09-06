@@ -72,17 +72,22 @@ export const PortfolioPage: React.FC = () => {
       />
 
       {/* Main Content Assembly */}
-      <main className="w-full overflow-hidden">
-        {/* Flagship Hero Section with Vertical Showcase Marquee */}
-        <VerticalProjectShowcase
-          onOpenWhatsApp={() => setIsWhatsAppOpen(true)}
-          onOpenIntake={() => setIsIntakeOpen(true)}
-        />
+      <main className="w-full relative">
+        {/* Sticky Hero Section + Trust Marquee */}
+        <div className="relative z-0">
+          <div className="sticky top-0 z-0">
+            <VerticalProjectShowcase
+              onOpenWhatsApp={() => setIsWhatsAppOpen(true)}
+              onOpenIntake={() => setIsIntakeOpen(true)}
+            />
+            <TrustMarquee />
+          </div>
+        </div>
 
-        {/* Seamless Sub-Hero Tech Stack Bar */}
-        <TrustMarquee />
-
-        <div className="bg-white text-zinc-900 w-full overflow-hidden">
+        {/* Mild Curved White Sheet that slides UP over the sticky hero */}
+        <div
+          className="relative z-10 -mt-6 sm:-mt-10 bg-white text-zinc-900 w-full overflow-hidden rounded-t-[28px] sm:rounded-t-[36px] md:rounded-t-[44px] shadow-[0_-24px_70px_rgba(0,0,0,0.7)] border-t border-zinc-200/90"
+        >
           <WhatIBuildSection
             onOpenIntake={() => setIsIntakeOpen(true)}
           />
